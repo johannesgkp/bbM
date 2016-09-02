@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="utf-8"/>
+	</head>
+	<body onload="loadPlayer();">	
+		<p id="topHUD"></p>
+		<h1>BierballManager</h1>
+		
+		<button type="button", onclick= "prepareFight()">
+		Fight
+		</button>
+		
+		<button type="button", onclick= "train()">
+		Train
+		</button>
+		
+		<button type="button", onclick= "buy()">
+		Buy
+		</button>
+		
+		<button type="button", onclick= "save()">
+		Save
+		</button>
+		
+		<button type="button", onclick= "info()">
+		Info
+		</button>
+		
+		<form>
+			<select id="fighterDDL", style="display: none", onchange="phaseId()">
+				<option value="">Select a person:</option>
+			</select>
+		</form>
+		
+		<button id="purchaseButton", style="display: none", type="button", onclick= "purchase()">
+		Purchase
+		</button>
+		
+		<button id="runButton", style="display: none", type="button", onclick= "checkTime(runTraining)">
+		Run
+		</button>
+		
+		<button id="drinkButton", style="display: none", type="button", onclick= "checkTime(drinkTraining)">
+		Drink
+		</button>
+		
+		<button id="throwButton", style="display: none", type="button", onclick= "checkTime(throwTraining)">
+		Throw
+		</button>
+		
+		<table id="announcements", style="border: 1px solid black">
+		</table>	
+		<script>
+			var phase = 2;
+			var player = new Array;
+			var fighterArray = new Array;
+			var newFighterArray = new Array;
+			var numberOfFightingFighter = 0;
+			
+			
+			var DrinksSen = "drinks";
+			var FinishesSen = "finishes";
+			var HisBeerSen = "his beer";
+			var ThrowsSen = "throws";
+			var MissesSen = "misses";
+			var AndHitsSen = "and hits";
+			var RealHardSen = "real hard";
+			var WinsSen = "wins";
+			var teamSen = "Team";
+			var thereForHeCannotFightSen = "therefor he cannot fight.";
+			var notEnoughMoneyForTheBeerAndStuffSen = "Not enough money for the beer and stuff.";
+			var chucksHisBeerSen = "chucks his beer";
+			
+			/*
+			var DrinksSen = "trinkt";
+			var FinishesSen = "leert";
+			var HisBeerSen = "sein Bier";
+			var ThrowsSen = "wirft";
+			var MissesSen = "verfehlt";
+			var AndHitsSen = "und trifft";
+			var RealHardSen = "sehr stark";
+			var WinsSen = "gewinnt";
+			*/
+	
+			var notEnoughMoneySen = "Not enough Money to purchase: ";
+			var purchasedSen = "Purchased";
+			var nameSen = "Name";
+			var speedRunSen = "SpeedRun";
+			var speedDrinkSen = "SpeedDrink";
+			var mouthCapacitySen = "MouthCapacity";
+			var speedThrowSen = "SpeedThrow";
+			var accuracySen = "Accuracy";
+			var drinkHoldabilitySen = "DrinkHoldability";
+			var priceSen = "Price";
+			
+			var willSen = "will";
+			var runSen = "run";
+			var drinkSen = "drink";
+			var throwSen = "throw";
+			var isBusySen = "is busy";
+			var untilSen = "until";
+			var trainsAllreadySen = " trains allready!";
+			var selectAFighterSen = "Select a fighter.";
+		</script>
+		<script src = "loadFighter.js"></script>
+		<script src = "loadPlayer.js"></script>
+		<script src = "training.js"></script>
+		<script src = "buying.js"></script>
+		<script src = "saving.js"></script>
+		<script src = "fighting.js"></script>
+		<script src = "fighter.js"></script>
+		<script src = "oldFighter.js"></script>
+		<script src = "beer.js"></script>
+		<script src = "informing.js"></script>
+		<script src = "writeInfo.js"></script>
+		
+	</body>
+</html> 
