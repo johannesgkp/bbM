@@ -1,21 +1,24 @@
 /*
 * Constructor for beer
-* @param l, int how much beer is left in ml
-* @param speedD, int how fast can you drink from the beer
-* @param c, capacity in ml
-* @param alcoholB, alcoholByVolume
+* @param name, string
+* @param liter, int how much beer is left in ml
+* @param speedDrink, int how fast can you drink from the beer
+* @param capacity, in ml
+* @param alcoholByVolume, how much alcohol is in the bottle
+* @param value, the player has to pay the beer for every fighter
 */
-function beerBottle(n, l, speedD, c, alcoholB, value) {
-	this.name = n;
-	this.liter = l;
-	this.speedDrink = speedD;
-	this.capacity = c;
-	this.alcoholByVolume = alcoholB;
+function beerBottle(name, liter, speedDrink, capacity, alcoholByVolume, value) {
+	this.name = name;
+	this.liter = liter;
+	this.speedDrink = speedDrink;
+	this.capacity = capacity;
+	this.alcoholByVolume = alcoholByVolume;
 	this.cost = value;
 }
 
 /*
-*
+* @param beerId, to identifie which beer is beeing used
+* @return beer, construted by beerBottle()
 */
 function getBeer(beerId) {
 	if(beerId == 0) {

@@ -1,8 +1,26 @@
 /*
-* Constructor for fightingFighter
-* @param
+* Constructor for fighter
+* blablaMin is the smallest value that a variable can have
+* blablaMax is the biggest value, that can be added to the blablaMin value
+* there for the actual maxValue is blablaMin + blablaMax
+* @param speedRunMin
+* @param speedRunMax
+* @param speedDrinkMin
+* @param speedDrinkMax
+* @param mouthCapacityMin
+* @param mouthCapacityMax
+* @param speedThrowMin
+* @param speedThrowMax
+* @param accuracyMin
+* @param accuracyMax
+* @param luckMin
+* @param luckMax
+* @param drinkHoldabilityMin
+* @param drinkHoldabilityMax
+* @param valueMax, max value that is going to be added to the actual value
 */
 function Fighter(speedRunMin, speedRunMax, speedDrinkMin, speedDrinkMax, mouthCapacityMin, mouthCapacityMax, speedThrowMin, speedThrowMax, accuracyMin, accuracyMax, luckMin, luckMax, drinkHoldabilityMin, drinkHoldabilityMax, valueMax) {
+	// string
 	this.name = getName();				
 	// in m/h
 	this.speedRun =  Math.round((parseInt(speedRunMin) + (Math.random() * speedRunMax)));
@@ -24,9 +42,9 @@ function Fighter(speedRunMin, speedRunMax, speedDrinkMin, speedDrinkMax, mouthCa
 	this.beer = getBeer(player.beerId);
 	// in millisec
 	this.occupied = 0;
-	//
+	// not yet
 	this.born = 0;
-	//
+	// will be set by the db once the fighter is saved for the first time
 	this.id = undefined;
 	// int
 	this.playerId = readCockie("playerId");
@@ -36,40 +54,54 @@ function Fighter(speedRunMin, speedRunMax, speedDrinkMin, speedDrinkMax, mouthCa
 
 /*
 * drinking
-* @param time, how long can the player drink
+* @param time, how long can the fighter drink
 */
 Fighter.prototype.drinking = function(time) {
 	// how often can the fighter empty his mouth and how much beer fits in his mouth
 	var dri = Math.round((((time / this.speedDrink) * this.rndm()) * this.mouthCapacity));
 	
-	if((this.beer.liter < dri) && (this.beer.liter != 0)){
-		//finished beer
-		announceFighting(0, this.name, "");
-		this.beer.liter = 0; 				
-	} else if(this.beer.liter != 0) {
-		//normal drink
-		announceFighting(1, this.name, (dri + "/" + this.beer.liter));
-		this.beer.liter -= dri;
-		this.influence = (this.influence +((dri / this.beer.capacity) * this.beer.alcoholByVolume));
+	// if the beer is already empty dont do anything
+	if(this.beer.liter != 0) {
+		// if the fighter finishes his beer
+		if(this.beer.liter < dri) {
+			// finished beer
+			announceFighting(0, this.name, "");
+			this.beer.liter = 0; 				
+		} else {
+			// normal drink
+			this.beer.liter -= dri;
+			// fighter gets more wasted
+			this.influence = (this.influence +((dri / this.beer.capacity) * this.beer.alcoholByVolume));
+			announceFighting(1, this.name, (dri + "/" + this.beer.liter));
+		}		
 	}
 };
 
 /*
 * throwing
+* @param fieldLength, in cm
+* @param strengthNeededToHitBottle, in m/h
+* @param accuracyNeededToHitBottle, as a float(%)
+* @param accuracyNeededToBounceBack, as a float(%)
 * @return meter
 */
 Fighter.prototype.throwing = function(fieldLength, strengthNeededToHitBottle, accuracyNeededToHitBottle, accuracyNeededToBounceBack) {
 	var result;
 	// influence depending on trinkfestigkeit
 	var infl = ((this.drinkHoldability - Math.max(this.drinkHoldability, this.influence)) * 5);
-	// accu is not in %
+	// accu is not in % but is a float(%) and depends on infl
 	var accu = (((this.accuracy + infl) * this.rndm()) / 100);
+	// strength from the throw pushes the bottle, but only as hard as accurad as the throw hits the bottle o_O
+	// also the length of the field reduces the strength
 	var strength = ((accu * this.speedThrow) - ((fieldLength / 2) / 100));
 	
+	// if the fighter manages to make the bottle fall
 	if((accu > accuracyNeededToHitBottle) && ((strength > strengthNeededToHitBottle))) {
+		// if the fighter manages to make the ball bounce back from the bottle, the enemy has to run a bigger distance in order to optain the ball
 		if(accu > accuracyNeededToBounceBack) {
 			result = ((fieldLength / 2) + (strength / 2));
 		} else {
+			// else the enemy only hast to run to the middle of the field to put the bottle back up
 			result = (fieldLength / 2);	
 		}
 	} else {
@@ -82,23 +114,24 @@ Fighter.prototype.throwing = function(fieldLength, strengthNeededToHitBottle, ac
 
 /*
 * catching
-* @param throwOutcome, int how good was the throw
-* @return int time the player needed to catch
+* @param meterToRun, in cm
+* @return time the player needed to catch in s
 */
 Fighter.prototype.catching = function(meterToRun) {
-	// * 2 because the fighter has tu run back after catching
+	// * 2 because the fighter has to run back after catching
 	return ((meterToRun * 2) / this.speedRun)
 };
 
 /*
-* @return int how fast did the player catch
+* to make the fights less predictable
+* @return a random number which is not smaller than fighter.luck or bigger than 1
 */
-Fighter.prototype.rndm = function(throwOutcome, fieldLength) {
+Fighter.prototype.rndm = function() {
 	return Math.min((Math.random() + this.luck), 1);
 };
 
 /*
-* 
+* @return a name
 */
 function getName() {
 	var names = [
