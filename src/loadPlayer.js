@@ -1,11 +1,10 @@
 /*
-* uses the name to make an sql request to optain the pw
-* and the id of the player
+* uses the name of the player to make an sql request to optain the players id and pw to send it to checkPw(array)
 */
 function loadPlayerId() {	
 	var xmlhttp = new XMLHttpRequest();
 	var playerName = document.getElementById("playerName").value;
-	var playerPw = "" + document.getElementById("playerPw").value;
+	var playerPw = document.getElementById("playerPw").value;
 	
 	xmlhttp.onload = function() {
 		checkPw(xmlhttp.responseText);
@@ -15,8 +14,7 @@ function loadPlayerId() {
 }
 
 /*
-* uses the name to make an sql request to optain the pw
-* and the id of the player
+* uses the id of the player from a cookie to make an sql request to optain the player array to send it to checkPw(array)
 */
 function loadPlayer() {	
 	var xmlhttp = new XMLHttpRequest();
@@ -24,8 +22,10 @@ function loadPlayer() {
 	
 	xmlhttp.onload = function() {
 		player = JSON.parse(xmlhttp.responseText);
+		// announce name and money from the player
 		loadTopHUD();
 		loadFighter(); 
+		// fill the buyableFighterArray
 		getGoods();
 	};
 	xmlhttp.open("GET", "loadPlayer.php?playerId=" + playerId, true);
@@ -33,9 +33,8 @@ function loadPlayer() {
 }
 
 /*
-* checks wether the pw for the form matches the pw form the db
-* @param responsePw, the pw from the db as json
-* @param callback, should be loadFighter
+* checks wether the pw from the html page matches the pw from the db
+* @param responsePw, array with the pw from the db as json
 */
 function checkPw(responsePw) {
 		console.log(responsePw);

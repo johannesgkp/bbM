@@ -1,5 +1,5 @@
 /*
-* 
+* shows the fighter of the player in the annoucnment table
 */
 function info() {   
 	var i = 0;

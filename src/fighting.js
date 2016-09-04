@@ -15,7 +15,7 @@ function prepareFight() {
 	clearTable();
 	
 	// how much the player has to pay if he losses (but not the beercost)
-	var costFight = 0;
+	var costBeerFightGain = [0, 0, 0];
 	var i = 0;
 	// the first half of the array are the fighter from the player, the second half are the other team
 	var fightingFighter = new Array;
@@ -31,7 +31,6 @@ function prepareFight() {
 		announceFighting(4, fightingFighter[i].name, "");
 	}
 	
-	costFight = checkMoneyAndTime(fightingFighter);
 	announceFighting(5, "", "2");
 	
 	// fill the second half of the fightingFighter with random fighters
@@ -41,13 +40,17 @@ function prepareFight() {
 		announceFighting(4, fightingFighter[(fighterArray.length + i)].name, "");
 	}
 	
+	costBeerFightGain = checkMoneyAndTime(fightingFighter, 0);
+	
+	costFight
+	
 	// announce Team
 	announceFighting(5, "", "1");
 	numberOfFightingFighter = (fightingFighter.length + 2);
 	
 	// cost Fight is 0 if the fighters are already occupied or the player has not enough money
-	if(costFight > 0) {
-		fight(fightingFighter, costFight);
+	if(costBeerFightGain[1] > 0) {
+		fight(fightingFighter, costBeerFightGain);
 		// changes the ammount of money the player has
 		loadTopHUD();
 		save();
@@ -57,7 +60,7 @@ function prepareFight() {
 /*
 * 
 */
-function fight(fightingFighter, costFight) {	
+function fight(fightingFighter, costBeerFightGain) {	
 	// the cost of the beer has been taken from the player
 	loadTopHUD();
 
@@ -74,8 +77,12 @@ function fight(fightingFighter, costFight) {
 	// in cm
 	var fieldLength = 100;
 	
+	// in m
 	var throwOutcome;
+	// in s
 	var catchTime;
+	
+	player.money -= costBeerFightGain[0];
 	
 	while((!gameOver) && (numberOfRounds < 500)) {
 		numberOfRounds++;
@@ -98,26 +105,19 @@ function fight(fightingFighter, costFight) {
 		}
 	}
 	
-	//activeFighter = ((activeFighter + (fightingFighter.length / 2)) % fightingFighter.length)
 	for(i = 0; i < (fightingFighter.length / 2); i++) {
 		// winner
-		if(fightingFighter[(activeFighter + i)].beer.liter <= 0){
-			announceFighting(3, fightingFighter[(activeFighter + i)].name, "");
-		}
+		announceFighting(3, fightingFighter[(activeFighter + i)].name, "");
 	}
-	// if you lost
+	
 	if(activeFighter >= ((fightingFighter.length / 2) - 1)) {
-		player.money -= costFight;
+		// lost
+		player.money -= costBeerFightGain[1];
 	} else {
-		console.log("DU HASST GEWONNEN!");
-		costFight = 0;
-		var i = 0;
-		for(i = 0; i < (fightingFighter.length / 2); i++) {
-			costFight += (fightingFighter[((fightingFighter.length / 2) + i)].value / 25);
-		}
-		costFight /= fightingFighter.length;
-		player.money += costFight;
+		// win
+		player.money += costBeerFightGain[2];
 	}
+	
 	activeFighter = ((activeFighter + (fightingFighter.length / 2)) % fightingFighter.length)	
 	for(i = 0; i < (fightingFighter.length / 2); i++) {
 		// looser chucks beer
@@ -133,33 +133,46 @@ function fight(fightingFighter, costFight) {
 function 
 
 /*
-* 
+* cost and gain are computet the same way
+* average values of the fighter of one team / 20
+* @param fightingFighter array
+* @return array [cost of beer, cost you have to pay if you loose, money(gain) you win]
 */
 function checkMoneyAndTime(fightingFighter) {
+	// if all fighter arent occupied
 	if(checkTimeArray(fightingFighter)) {
-		var numberOfFightingFighters = fightingFighter.length;
+		var numberHalfFighters = (fightingFighter.length / 2);
 		var costBeer = getBeer(player.beerId).cost * numberOfFightingFighters;
 		var costFight = 0;
+		var gainFight = 0;
 		var i = 0;
-		for(i = 0; i < numberOfFightingFighters; i++) {
+		
+		for(i = 0; i < numberHalfFighters; i++) {
 			costFight += (fightingFighter[i].value / 20);
+			gainFight += (fightingFighter[(numberHalfFighters + i)].value / 20);
 		}
 		costFight /= fightingFighter.length;
+		gainFight /= fightingFighter.length;
+		
+		// if player can afford to loose
 		if((costBeer + costFight) <= player.money){
-			player.money -= costBeer;
-			return costFight;
+			return [costBeer, costFight, gainFight];
 		} else {
+			// announce not enough money
 			announceFighting(7, "", "");
-			return 0;
+			return [0, 0, 0];
 		}
 	} else {
+		// announce fighters are occupied
 		announceFighting(6, fightingFighter[i].name, fightingFighter[i].occupied);	
-		return 0;
+		return [0, 0, 0];
 	}
 }
 
 /*
-* 
+* check wether all fighter have time to fight
+* @param fightingFighter, array
+* @return true, if no fighter is occupied
 */
 function checkTimeArray(fightingFighter) {
 	var i = 0;

@@ -1,5 +1,5 @@
 /*
-* load
+* saves a new player (name and pw) to the db
 */
 function registrate() {
 	var xmlhttp = new XMLHttpRequest();

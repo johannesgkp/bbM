@@ -8,7 +8,7 @@ function save() {
 }
 
 /*
-* 
+* updates the player (money, and beerId) ath the db using the id
 */
 function savePlayer() {	
 	var i = 0;
@@ -27,7 +27,7 @@ function savePlayer() {
 }
 
 /*
-* 
+* updates/inserts the fighter at the db using the id
 */
 function saveFighter() {	
 	var i = 0;
@@ -46,11 +46,12 @@ function saveFighter() {
 		}
 		xmlhttp.send();
 	}
+	// so that newly bought fighter are also in the fighterArray
 	loadFighter();
 }
 
 /*
-* 
+* test
 */
 function saveFighter2() {	
 	var i = 0;

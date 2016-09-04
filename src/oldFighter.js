@@ -1,6 +1,7 @@
 /*
-* Constructor for fightingFighter
-* @param
+* Constructor for fighter, that where loaded from the db
+* they need to optain the functions (throw, ctach...)
+* @param oldFighterArray, contains all the values a fighter needs
 */
 function OldFighter(oldFighterArray) {	
 	this.name = oldFighterArray.name;	
@@ -19,7 +20,9 @@ function OldFighter(oldFighterArray) {
 	this.playerId =  parseInt(oldFighterArray.playerId);
 	this.value =  parseInt(oldFighterArray.value);
 }
-OldFighter.prototype = Object.create(Fighter.prototype); // inherit functions from Fighterclass
+
+// inherit functions from Fighterclass
+OldFighter.prototype = Object.create(Fighter.prototype);
 
 // use own construtor
 OldFighter.prototype.constructor = OldFighter;
