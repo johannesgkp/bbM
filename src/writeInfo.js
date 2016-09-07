@@ -1,3 +1,15 @@
+function guiFight() {	
+	// GUI changes
+	// hide
+	document.getElementById("fighterDDL").style.display = "none";
+	document.getElementById("purchaseButton").style.display = "none";	
+	document.getElementById("runButton").style.display = "none";
+	document.getElementById("drinkButton").style.display = "none";
+	document.getElementById("throwButton").style.display = "none";
+	
+	clearTable();
+}
+
 /*
 * 
 */
