@@ -1,4 +1,4 @@
-/*
+/*OOP
 * Constructor for beer
 * @param name, string
 * @param liter, int how much beer is left in ml
