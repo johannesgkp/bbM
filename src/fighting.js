@@ -42,8 +42,6 @@ function prepareFight() {
 	
 	costBeerFightGain = checkMoneyAndTime(fightingFighter, 0);
 	
-	costFight
-	
 	// announce Team
 	announceFighting(5, "", "1");
 	numberOfFightingFighter = (fightingFighter.length + 2);
@@ -130,8 +128,6 @@ function fight(fightingFighter, costBeerFightGain) {
 	console.log("numberOfRounds: " + numberOfRounds);
 }
 
-function 
-
 /*
 * cost and gain are computet the same way
 * average values of the fighter of one team / 20
@@ -139,13 +135,13 @@ function
 * @return array [cost of beer, cost you have to pay if you loose, money(gain) you win]
 */
 function checkMoneyAndTime(fightingFighter) {
+	var i = 0;
 	// if all fighter arent occupied
 	if(checkTimeArray(fightingFighter)) {
 		var numberHalfFighters = (fightingFighter.length / 2);
-		var costBeer = getBeer(player.beerId).cost * numberOfFightingFighters;
+		var costBeer = getBeer(player.beerId).cost * (numberHalfFighters * 2);
 		var costFight = 0;
 		var gainFight = 0;
-		var i = 0;
 		
 		for(i = 0; i < numberHalfFighters; i++) {
 			costFight += (fightingFighter[i].value / 20);
