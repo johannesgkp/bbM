@@ -1,31 +1,9 @@
 /*
-* sets the buttons.style.display to "none" or "block" to change the view acordingly
-* updates the dropdownlist
-* clears the announcments table
-*/
-function buy() {	
-	phase = 2;
-	// show
-	document.getElementById("fighterDDL").style.display = "block";
-	document.getElementById("purchaseButton").style.display = "inline";
-	
-	// hide
-	document.getElementById("runButton").style.display = "none";
-	document.getElementById("drinkButton").style.display = "none";
-	document.getElementById("throwButton").style.display = "none";
-	
-	fighterToDDL(buyableFighter);
-	clearTable();
-	// sets up the first line of the announcmentTable (Name, Speed...)
-	firstLine();
-}
-
-/*
 * adds a fighter from buyableFighter to your fighterArray if you cann afford it
 */
-function purchase() {	
-	var fighterDDL = document.getElementById("fighterDDL");
-	var fighterNumber = fighterDDL.options[fighterDDL.selectedIndex].value;
+function purchase(fighterNumber) {	
+	//var fighterDDL = document.getElementById("fighterDDL");
+	//var fighterNumber = fighterDDL.options[fighterDDL.selectedIndex].value;
 	var table = document.getElementById("announcements");
 	
 	// if you can afford the fighter
@@ -44,6 +22,7 @@ function purchase() {
 		// announce that you dont have enough money
 		table.insertRow(0).innerHTML = notEnoughMoneySen + " " + buyableFighter[fighterNumber].name + ".";
 	}
+	guiBuy();
 }
 
 /*

@@ -116,7 +116,7 @@ function announceArrayOfFighter(arrayOfFighter, fighterNumber) {
 	}
 	var tableRow = document.getElementById("announcements").insertRow(1);
 	
-	tableRow.insertCell(0).innerHTML = arrayOfFighter[fighterNumber].name;
+	tableRow.insertCell(0).innerHTML = ("<button type='button', onclick= 'purchase(" + fighterNumber + ")' />" + arrayOfFighter[fighterNumber].name + "</button>");
 	tableRow.insertCell(1).innerHTML = arrayOfFighter[fighterNumber].speedRun;
 	tableRow.insertCell(2).innerHTML = arrayOfFighter[fighterNumber].speedDrink;
 	tableRow.insertCell(3).innerHTML = arrayOfFighter[fighterNumber].mouthCapacity;
