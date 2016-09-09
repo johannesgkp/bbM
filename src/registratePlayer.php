@@ -12,7 +12,7 @@
 	$playerPw = mysqli_real_escape_string($connection, $_POST['playerPw']);
 	
 	$i = 0;
-	$sql = ("INSERT INTO ".$playerDb." (name, pw, money, beerId) VALUES ('".$playerName."', '".$playerPw."', '"."130"."', '"."0"."')");
+	$sql = ("INSERT INTO ".$playerDb." (name, pw, money, beerId) VALUES ('".$playerName."', '".$playerPw."', '"."230"."', '"."0"."')");
 
 	
 	if (!$connection) {
