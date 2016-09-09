@@ -26,7 +26,12 @@
 		
 		<input type="button" id="throwButton" onclick="checkTime(throwTraining);" value="Throw" style="display: none" />
 		
-		<input type="button" id="teamSelectButton" onclick="getCheckedCheckboxesFor('team', prepareFight);" value="Fight" style="display: none" />
+		<input type="button" id="testFight" onclick="getCheckedCheckboxesFor('team', prepareTestFight);" value="testFight" style="display: none" />
+		
+		<input type="button" id="parkFight" onclick="getCheckedCheckboxesFor('team', prepareParkFight);" value="parkFight" style="display: none" />
+		
+		<input type="button" id="turnierFight" value="turnierFight" style="display: none" />
+		
 		<script>
 			// i dont know why i did this
 			var phase = 2;

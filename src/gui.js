@@ -32,7 +32,9 @@ function guiFight() {
 	// GUI changes
 	
 	// show
-	document.getElementById("teamSelectButton").style.display = "inline";
+	document.getElementById("testFight").style.display = "inline";
+	document.getElementById("parkFight").style.display = "inline";
+	document.getElementById("turnierFight").style.display = "inline";
 	
 	// hide	
 	document.getElementById("runButton").style.display = "none";
