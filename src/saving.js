@@ -11,10 +11,7 @@ function save() {
 * updates the player (money, and beerId) ath the db using the id
 */
 function savePlayer() {	
-	var i = 0;
-	var table = document.getElementById("announcements");
-	var tableRow = table.insertRow(0);
-	
+	var i = 0;	
 	var xmlhttp = new XMLHttpRequest();
 
 	xmlhttp.onload = function() {

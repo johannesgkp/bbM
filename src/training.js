@@ -49,8 +49,8 @@ function throwTraining(fighterNumber) {
 function checkTime(callback) {
 	var fighterNumbersArray = getCheckedCheckboxesFor("team", undefined);
 	var i = 0;
-	
 	for(i = 0; i < fighterNumbersArray.length; i++){
+	console.log("drinnen");
 		if(fighterArray[fighterNumbersArray[i]].occupied < new Date().getTime()) {
 			if(typeof(callback) == "function") {
 				callback(fighterNumbersArray[i]);

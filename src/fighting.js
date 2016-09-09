@@ -7,12 +7,14 @@ function getCheckedCheckboxesFor(checkboxName, callback) {
     Array.prototype.forEach.call(checkboxes, function(el) {
         values.push(el.value);
     });
-	
-	if(typeof(callback) == "function") {
-		callback(values);
-	} else {
-		return values;			
-	}
+	if(values.length == 0){
+		return 0;
+	} else {		}
+		if(typeof(callback) == "function") {
+			callback(values);
+		} else {
+			return values;			
+	}	
 }
 
 /*
