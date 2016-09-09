@@ -6,7 +6,7 @@ function info() {
 	
 	clearTable();
 	firstLine();
-	for(i = 0; i < fighterArray.length; i++){
-		announceArrayOfFighter(fighterArray, i);
+	for(i = 0; i < fighterArray.length; i++) {
+		announceArrayOfFighterRadioButton(fighterArray, i);
 	}
 }

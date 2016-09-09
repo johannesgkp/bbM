@@ -110,6 +110,28 @@ function firstLine() {
 /*
 * 
 */
+function checkAll() {
+	var teamCheckBoxes = document.getElementsByName("team");
+	var i = 0;
+	for(i = 0; i < teamCheckBoxes.length; i++) {
+		teamCheckBoxes[i].checked = true;
+	}
+}
+
+/*
+* 
+*/
+function unCheckAll() {
+	var teamCheckBoxes = document.getElementsByName("team");
+	var i = 0;
+	for(i = 0; i < teamCheckBoxes.length; i++) {
+		teamCheckBoxes[i].checked = false;
+	}
+}
+
+/*
+* 
+*/
 function announceArrayOfFighter(arrayOfFighter, fighterNumber) {
 	if(fighterNumber < 0) {
 		fighterNumber = fighterDDL.options[fighterDDL.selectedIndex].value;		
@@ -127,25 +149,21 @@ function announceArrayOfFighter(arrayOfFighter, fighterNumber) {
 }
 
 /*
-* encodes the fighter of the player
-* @param responseFighter, the fighter from the db as an array encoded as json
+* 
 */
-function fighterToDDL(fighterA) {
-		var ddl = document.getElementById("fighterDDL");	
-		ddl.options.length=0;	
-		var y;
-		var j = 0;
-		
-		if (fighterA.length <= 0) {
-			y = document.createElement("option");
-			y.text = "You got no Fighter.";
-			ddl.add(y,ddl.options[null]);
-		} else {	
-			for(j = 0; j < fighterA.length; j++) {
-				y = document.createElement("option");
-				y.text = fighterA[j].name;
-				y.value = j;
-				ddl.add(y,ddl.options[null]);
-			}	
-		}
+function announceArrayOfFighterRadioButton(arrayOfFighter, fighterNumber) {
+	if(fighterNumber < 0) {
+		fighterNumber = fighterDDL.options[fighterDDL.selectedIndex].value;		
+	}
+	var tableRow = document.getElementById("announcements").insertRow(1);
+	
+	tableRow.insertCell(0).innerHTML = ("<span><input name='team' type='checkbox' value=" + fighterNumber + " />" + arrayOfFighter[fighterNumber].name + "</span>");
+	tableRow.insertCell(1).innerHTML = arrayOfFighter[fighterNumber].speedRun;
+	tableRow.insertCell(2).innerHTML = arrayOfFighter[fighterNumber].speedDrink;
+	tableRow.insertCell(3).innerHTML = arrayOfFighter[fighterNumber].mouthCapacity;
+	tableRow.insertCell(4).innerHTML = arrayOfFighter[fighterNumber].speedThrow;
+	tableRow.insertCell(5).innerHTML = arrayOfFighter[fighterNumber].accuracy;
+	tableRow.insertCell(6).innerHTML = arrayOfFighter[fighterNumber].drinkHoldability;
+	tableRow.insertCell(7).innerHTML = arrayOfFighter[fighterNumber].value;
+	
 }

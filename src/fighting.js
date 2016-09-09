@@ -1,10 +1,25 @@
 /*
 * 
 */
-function prepareFight() {	
-	phase = 0;
+function getCheckedCheckboxesFor(checkboxName, callback) {
+    var checkboxes = document.querySelectorAll('input[name="' + checkboxName + '"]:checked'), values = new Array;
 	
-	guiFight()
+    Array.prototype.forEach.call(checkboxes, function(el) {
+        values.push(el.value);
+    });
+	
+	if(typeof(callback) == "function") {
+		callback(values);
+	} else {
+		return values;			
+	}
+}
+
+/*
+* 
+*/
+function prepareFight(teamArray) {	
+	phase = 0;
 	
 	// how much the player has to pay if he losses (but not the beercost)
 	var costBeerFightGain = [0, 0, 0];
@@ -15,10 +30,10 @@ function prepareFight() {
 	numberOfFightingFighter = 0;
 	
 	// fill the first half of the fightingFighter with the players team
-	for(i = 0; i < fighterArray.length; i++) {
+	for(i = 0; i < teamArray.length; i++) {
 		// the fighter need to get a new beer
-		fighterArray[i].beer = getBeer(player.beerId);
-		fightingFighter[i] = fighterArray[i];
+		fighterArray[teamArray[i]].beer = getBeer(player.beerId);
+		fightingFighter[i] = fighterArray[teamArray[i]];
 		// announce Teammembernames
 		announceFighting(4, fightingFighter[i].name, "");
 	}
@@ -26,10 +41,10 @@ function prepareFight() {
 	announceFighting(5, "", "2");
 	
 	// fill the second half of the fightingFighter with random fighters
-	for(i = 0; i < fighterArray.length; i++) {
-		fightingFighter[(fighterArray.length + i)] = new Fighter(15, 5, 12, 3, 16, 4, 15, 5, 20, 10, 0.05, 0.1, 3, 5, 20);
+	for(i = 0; i < teamArray.length; i++) {
+		fightingFighter[(teamArray.length + i)] = new Fighter(15, 5, 12, 3, 16, 4, 15, 5, 20, 10, 0.05, 0.1, 3, 5, 20);
 		// announce Teammembernames
-		announceFighting(4, fightingFighter[(fighterArray.length + i)].name, "");
+	announceFighting(4, fightingFighter[(teamArray.length + i)].name, "");
 	}
 	
 	costBeerFightGain = checkMoneyAndTime(fightingFighter, 0);

@@ -3,18 +3,8 @@
 */
 function train() {
 	phase = 1;
-	fighterToDDL(fighterArray); //loadingFighters.js
-	document.getElementById("fighterDDL").style.display = "block";
-	document.getElementById("runButton").style.display = "inline";
-	document.getElementById("drinkButton").style.display = "inline";
-	document.getElementById("throwButton").style.display = "inline";
 	
-	document.getElementById("purchaseButton").style.display = "none";
-	
-	var table = document.getElementById("announcements");
-	while(table.rows[0]) {
-		table.deleteRow(0);
-	}
+	guiTrain();
 }
 
 /*
@@ -25,7 +15,6 @@ function runTraining(fighterNumber) {
 	fighterArray[fighterNumber].speedRun = parseInt(fighterArray[fighterNumber].speedRun) + 1;
 	announceTraining(0, fighterArray[fighterNumber].name, fighterArray[fighterNumber].occupied);			
 	//console.log(fighterArray[fighterNumber].name + " " + will + " " + run + " " + until + ": " + new Date(fighterArray[fighterNumber].occupied).toUTCString());
-	save();
 }
 
 /*
@@ -38,7 +27,6 @@ function drinkTraining(fighterNumber) {
 	fighterArray[fighterNumber].mouthCapacity = parseInt(fighterArray[fighterNumber].mouthCapacity) + 0.1;
 	announceTraining(1, fighterArray[fighterNumber].name, fighterArray[fighterNumber].occupied);		
 	//console.log(fighterArray[fighterNumber].name + " " + will + " " + drink + " " + until + ": " + new Date(fighterArray[fighterNumber].occupied).toUTCString());
-	save();
 }
 
 /*
@@ -52,31 +40,30 @@ function throwTraining(fighterNumber) {
 	fighterArray[fighterNumber].accuracy = parseInt(fighterArray[fighterNumber].accuracy) + 0.5;
 	announceTraining(2, fighterArray[fighterNumber].name, fighterArray[fighterNumber].occupied);		
 	//console.log(fighterArray[fighterNumber].name + " " + will + " " + thro + " " + until + ": " + new Date(fighterArray[fighterNumber].occupied).toUTCString());
-	save();
+
 }
 
 /*
 * @param callback specifies which training is done
 */
 function checkTime(callback) {
-	var fighterDDL = document.getElementById("fighterDDL");
-	var fighterNumber = fighterDDL.options[fighterDDL.selectedIndex].value;
+	var fighterNumbersArray = getCheckedCheckboxesFor("team", undefined);
+	var i = 0;
 	
-	if(fighterNumber == "") {
-		alert(selectAFighter);
-	} else {
-		if(fighterArray[fighterNumber].occupied < new Date().getTime()) {
+	for(i = 0; i < fighterNumbersArray.length; i++){
+		if(fighterArray[fighterNumbersArray[i]].occupied < new Date().getTime()) {
 			if(typeof(callback) == "function") {
-				callback(fighterNumber);
+				callback(fighterNumbersArray[i]);
 			} else {
 				console.log("callback is not a function");
 				console.log(callback);			
 			}
 		} else {
-			announceTraining(999, fighterArray[fighterNumber].name, fighterArray[fighterNumber].occupied);		
-			//console.log(fighterArray[fighterNumber].name + trainsAllready + " " + new Date(fighterArray[fighterNumber].occupied).toUTCString());
+			announceTraining(999, fighterArray[fighterNumbersArray[i]].name, fighterArray[fighterNumbersArray[i]].occupied);		
+			//console.log(fighterArray[fighterNumbersArray[i]].name + trainsAllready + " " + new Date(fighterArray[fighterNumbersArray[i]].occupied).toUTCString());
 		}		
 	}
+	save();
 }
 
 /*

@@ -7,50 +7,26 @@
 		<p id="topHUD"></p>
 		<h1>BierballManager</h1>
 		
-		<button type="button", onclick= "prepareFight()">
-		Fight
-		</button>
+		<input type="button" id="fightButton" onclick="guiFight();" value="Fight" />
 		
-		<button type="button", onclick= "train()">
-		Train
-		</button>
+		<input type="button" id="trainButton" onclick="train();" value="Train" />
 		
-		<button type="button", onclick= "guiBuy()">
-		Buy
-		</button>
+		<input type="button" id="buyButton" onclick="guiBuy();" value="Buy" />
 		
-		<button type="button", onclick= "save()">
-		Save
-		</button>
+		<input type="button" id="saveButton" onclick="save();" value="Save" />
 		
-		<button type="button", onclick= "info()">
-		Info
-		</button>
-		
-		<form>
-			<select id="fighterDDL", style="display: none", onchange="phaseId()">
-				<option value="">Select a person:</option>
-			</select>
-		</form>
-		
-		<button id="purchaseButton", style="display: none", type="button", onclick= "purchase()">
-		Purchase
-		</button>
-		
-		<button id="runButton", style="display: none", type="button", onclick= "checkTime(runTraining)">
-		Run
-		</button>
-		
-		<button id="drinkButton", style="display: none", type="button", onclick= "checkTime(drinkTraining)">
-		Drink
-		</button>
-		
-		<button id="throwButton", style="display: none", type="button", onclick= "checkTime(throwTraining)">
-		Throw
-		</button>
-		
+		<input type="button" id="infoButton" onclick="info();" value="Info" />
+				
 		<table id="announcements", style="border: 1px solid black">
 		</table>	
+		
+		<input type="button" id="runButton" onclick="checkTime(runTraining);" value="Run" style="display: none" />
+		
+		<input type="button" id="drinkButton" onclick="checkTime(drinkTraining);" value="Drink" style="display: none" />
+		
+		<input type="button" id="throwButton" onclick="checkTime(throwTraining);" value="Throw" style="display: none" />
+		
+		<input type="button" id="teamSelectButton" onclick="getCheckedCheckboxesFor('team', prepareFight);" value="Fight" style="display: none" />
 		<script>
 			// i dont know why i did this
 			var phase = 2;
