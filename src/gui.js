@@ -10,7 +10,7 @@ function guiTrain() {
 	document.getElementById("throwButton").style.display = "inline";
 		
 	// hide
-	document.getElementById("teamSelectButton").style.display = "none";
+	document.getElementById("testFight").style.display = "none";
 	
 	
 	clearTable();
@@ -66,7 +66,7 @@ function guiBuy() {
 	document.getElementById("runButton").style.display = "none";
 	document.getElementById("drinkButton").style.display = "none";
 	document.getElementById("throwButton").style.display = "none";
-	document.getElementById("teamSelectButton").style.display = "none";
+	document.getElementById("testFight").style.display = "none";
 	
 	clearTable();
 	// sets up the first line of the announcmentTable (Name, Speed...)

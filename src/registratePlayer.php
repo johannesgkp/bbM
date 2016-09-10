@@ -1,15 +1,15 @@
 <?php
-	//$playerName = $_GET["playerName"];	
-	//$playerPw = $_GET["playerPw"];	
-	$playerName = "foo";	
-	$playerPw = "bar";	
+	$playerName = $_GET["playerName"];	
+	$playerPw = $_GET["playerPw"];	
+	//$playerName = "foo";	
+	//$playerPw = "bar";	
 	$playerDb = "player";
 	
 	$connection = mysqli_connect('localhost','root','','bbmdb0.0');
 
 	// escape variables for security
-	$playerName = mysqli_real_escape_string($connection, $_POST['playerName']);
-	$playerPw = mysqli_real_escape_string($connection, $_POST['playerPw']);
+	//$playerName = mysqli_real_escape_string($connection, $_POST['playerName']);
+	//$playerPw = mysqli_real_escape_string($connection, $_POST['playerPw']);
 	
 	$i = 0;
 	$sql = ("INSERT INTO ".$playerDb." (name, pw, money, beerId) VALUES ('".$playerName."', '".$playerPw."', '"."230"."', '"."0"."')");
