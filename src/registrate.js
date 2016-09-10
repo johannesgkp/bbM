@@ -9,7 +9,7 @@ function registrate() {
 	xmlhttp.onload = function() {
 		//loadPlayer();
 	};
-	xmlhttp.open("GET", "registratePlayer.php?playerName=" + playerName + "&playerPw=" + playerPw, true);
+	xmlhttp.open("GET", "src/registratePlayer.php?playerName=" + playerName + "&playerPw=" + playerPw, true);
 	xmlhttp.send();
 }
 
