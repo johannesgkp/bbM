@@ -103,7 +103,7 @@ function prepareTestFight(teamArray) {
 	
 	// cost Fight is 0 if the fighters are already occupied or the player has not enough money
 	if(costBeerFightGain[1] > 0) {
-		fight(fightingFighter, costBeerFightGain, 0, 0.09, 0.3, 2, 100);
+		fight(fightingFighter, costBeerFightGain, 0.09, 0.3, 2, 100);
 		// changes the ammount of money the player has
 		loadTopHUD();
 		save();
@@ -113,13 +113,15 @@ function prepareTestFight(teamArray) {
 /*
 * 
 */
-function fight(fightingFighter, costBeerFightGain, activeFighter, accuracyNeededToHitBottle, accuracyNeededToBounceBack, strengthNeededToHitBottle, fieldLength) {	
+function fight(fightingFighter, costBeerFightGain, accuracyNeededToHitBottle, accuracyNeededToBounceBack, strengthNeededToHitBottle, fieldLength) {	
 	// the cost of the beer has been taken from the player
 	loadTopHUD();
 
 	var gameOver = false;
 	// right now the active fighter is the first member of a team but never the second or third... 
-	//activeFighter = 0;
+	var activeFighter = 0;
+	var fFLengthHalf = (fightingFighter.length / 2);
+	var activeFighter = 0;
 	var i = 0;
 	var numberOfRounds = 0;
 	
@@ -142,37 +144,55 @@ function fight(fightingFighter, costBeerFightGain, activeFighter, accuracyNeeded
 		// activeFighter throws
 		throwOutcome = fightingFighter[activeFighter].throwing(fieldLength, strengthNeededToHitBottle, accuracyNeededToHitBottle, accuracyNeededToBounceBack);
 		// first member of oppsite team catches
-		catchTime = fightingFighter[((activeFighter + (fightingFighter.length / 2)) % fightingFighter.length)].catching(throwOutcome);
-		gameOver = true;
+		catchTime = fightingFighter[((activeFighter + fFLengthHalf) % fightingFighter.length)].catching(throwOutcome);
 		
+		gameOver = true;
 		//everybody from one team drinks
-		for(i = 0; i < (fightingFighter.length / 2); i++) {
-			fightingFighter[(i + activeFighter)].drinking(catchTime);
-			if(fightingFighter[(i + activeFighter)].beer.liter != 0){
-				// if one member of the team still has beer left the game isnt over
-				gameOver = false;
+		for(i = 0; i < fFLengthHalf; i++) {
+			if(activeFighter < fFLengthHalf) {
+				fightingFighter[i].drinking(catchTime);
+				if(fightingFighter[i].beer.liter != 0){
+					// if one member of the team still has beer left the game isnt over
+					gameOver = false;
+				}
+			} else {
+				fightingFighter[i].drinking(catchTime);
+				if(fightingFighter[i].beer.liter != 0){
+					// if one member of the team still has beer left the game isnt over
+					gameOver = false;
+				}
 			}
 		}
 		if(!gameOver) {
-			activeFighter = ((activeFighter + (fightingFighter.length / 2)) % fightingFighter.length);	
+			if((numberOfRounds % 2) == 0) {
+				activeFighter++;
+			}
+			activeFighter = ((activeFighter + fFLengthHalf) % fightingFighter.length);	
 		}
 	}
 	
-	for(i = 0; i < (fightingFighter.length / 2); i++) {
-		// winner
-		announceFighting(3, fightingFighter[(activeFighter + i)].name, "");
+	if(activeFighter < fFLengthHalf) {
+		activeFighter = 0;
+	} else {
+		activeFighter = fFLengthHalf;
 	}
 	
-	if(activeFighter >= ((fightingFighter.length / 2) - 1)) {
-		// lost
-		player.money -= costBeerFightGain[1];
-	} else {
+	for(i = 0; i < fFLengthHalf; i++) {
+		// winner
+		announceFighting(3, fightingFighter[(activeFighter + i)].name, "");			
+	}
+	
+	if(activeFighter < fFLengthHalf) {
 		// win
 		player.money += costBeerFightGain[2];
+	} else {
+		// lost
+		player.money -= costBeerFightGain[1];
 	}
 	
-	activeFighter = ((activeFighter + (fightingFighter.length / 2)) % fightingFighter.length)	
-	for(i = 0; i < (fightingFighter.length / 2); i++) {
+	activeFighter = ((activeFighter + fFLengthHalf) % fightingFighter.length);	
+	
+	for(i = 0; i < fFLengthHalf; i++) {
 		// looser chucks beer
 		if(fightingFighter[(activeFighter + i)].beer.liter > 0){
 			announceFighting(8, fightingFighter[(activeFighter + i)].name, "");
