@@ -55,6 +55,9 @@ function Fighter(speedRunMin, speedRunMax, speedDrinkMin, speedDrinkMax, mouthCa
 	this.playerId = readCockie("playerId");
 	// in euro
 	this.value = Math.round(Math.random() * valueMax) + this.speedRun + this.speedDrink + this.mouthCapacity + this.strengthArm + this.accuracy + this.drinkHoldability;
+	this.insults = 	getSomeInsults(9, 4);
+	this.nervousness = getSomeInsults(999, 4);
+	
 }
 
 /*
@@ -248,6 +251,93 @@ function getName() {
 	"Buffy"
 	];
 	return names[Math.round(Math.random() * (names.length - 1))];
+}
+
+/*
+* @return a name
+*/
+
+function getInsult(nr) {
+	var result;
+		
+	var insults = [
+	[0, "Daneben!"],
+	[1, "Vorbei!"],
+	[2, "Achtung!"],
+	[3, "Polizei!"],
+	[4, "Regelverstoss!"],
+	[5, "Uebertreten!"],
+	[6, "Schneller!"],
+	[7, "Machmal!"],
+	[8, "Zeit!"],
+	
+	[9, "Schluepper rutscht!"],
+	[10, "Hose rutscht!"],
+	[11, "Deine Mudda steht hinter Dir!"],
+	
+	[12, "Du triffst nie!"],
+	[13, "Du hast schon letzte Runde nicht getroffen!"],
+	[14, "Du triffst sowieso nicht!"],
+	[15, "Hast Du ueberhaupt schon mal getroffen?"],
+	[16, "Weiter links!"],
+	[17, "Weiter rechts!"],
+	[18, "Du musst die Flasche treffen!"],
+	
+	[19, "Lass Dich nicht ablenken!"],
+	[20, "Konzentrier Dich!"],
+	
+	[21, "Bist Du ueberhaupt dran?"],
+	[22, "Du bist nicht dran, Du Trottel!"],
+	
+	[23, "Ist sowieso ega, naechste Runde bin ich fertig!"]
+	];
+	
+	if(nr < 0) {
+		result = insults.slice();;
+	} else if (nr >= insults.lentgh) {
+		nr = 0;
+	}
+	
+	if(nr >= 0) {
+		result = insults[nr][1];
+	}
+	
+	return result;
+}
+
+/*
+* @return a name
+*/
+
+function getSomeInsults(knowledge, ammount) {
+	var result = new Array();
+	var nr = 0;
+	var i = 0;
+	
+	var insults = getInsult(-1);
+	
+	if(knowledge < 1) {
+		knowledge = 1;
+	} else if(knowledge >= insults.length) {
+		knowledge = (insults.length - 1);
+	}
+	
+	if(ammount > knowledge) {
+		ammount = knowledge;
+	}
+	
+	for(i = 0; i < ammount; i++) {
+		nr = Math.round(Math.random() * (knowledge));
+		if(insults[nr][1].length > 0){
+		result[i] = new Array(2);
+		result[i][0] = parseInt(insults[nr][0]);
+		result[i][1] = insults[nr][1];
+		} else {
+			i--;
+		}
+		insults[nr][1] = "";
+	}
+	return result;
 }
 	// in cm/s
 	//speedRun = 100
