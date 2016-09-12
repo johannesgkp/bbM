@@ -75,6 +75,7 @@ function guiBuy() {
 	for(i = 0; i < buyableFighter.length; i++) {
 		announceArrayOfFighter(buyableFighter, i);
 	}
+	loadTopHUD();
 }
 
 /*

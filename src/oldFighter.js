@@ -8,7 +8,7 @@ function OldFighter(oldFighterArray) {
 	this.speedRun = parseInt(oldFighterArray.speedRun);
 	this.speedDrink = parseInt(oldFighterArray.speedDrink);
 	this.mouthCapacity = parseInt(oldFighterArray.mouthCapacity);
-	this.speedThrow = parseInt(oldFighterArray.speedThrow);
+	this.strengthArm = parseInt(oldFighterArray.strengthArm);
 	this.accuracy = parseInt(oldFighterArray.accuracy);
 	this.luck = parseInt(oldFighterArray.luck);
 	this.drinkHoldability = parseInt(oldFighterArray.drinkHoldability);

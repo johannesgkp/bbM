@@ -3,7 +3,7 @@
 	$speedRun = $_GET["speedRun"];
 	$speedDrink = $_GET["speedDrink"];
 	$mouthCapacity = $_GET["mouthCapacity"];
-	$speedThrow = $_GET["speedThrow"];
+	$strengthArm = $_GET["strengthArm"];
 	$accuracy = $_GET["accuracy"];
 	$luck = $_GET["luck"]; 
 	$drinkHoldability = $_GET["drinkHoldability"];
@@ -17,7 +17,7 @@
 	//$name = mysqli_real_escape_string($connection, $_POST["name"]);
 	
 	$fighterDb = "fighterdb";
-	$sql = ("UPDATE ".$fighterDb." SET speedRun=".$speedRun.", speedDrink=".$speedDrink.", mouthCapacity=".$mouthCapacity.", speedThrow=".$speedThrow.", accuracy=".$accuracy.", luck=".$luck.", drinkHoldability=".$drinkHoldability.", influence=".$influence.", occupied=".$occupied.", value=".$value." WHERE id=".$id);
+	$sql = ("UPDATE ".$fighterDb." SET speedRun=".$speedRun.", speedDrink=".$speedDrink.", mouthCapacity=".$mouthCapacity.", strengthArm=".$strengthArm.", accuracy=".$accuracy.", luck=".$luck.", drinkHoldability=".$drinkHoldability.", influence=".$influence.", occupied=".$occupied.", value=".$value." WHERE id=".$id);
 	
 	if (!$connection) {
 		die('Could not connect: ' . mysqli_error($connection));

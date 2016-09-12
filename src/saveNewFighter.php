@@ -3,7 +3,7 @@
 	$speedRun = $_GET["speedRun"];
 	$speedDrink = $_GET["speedDrink"];
 	$mouthCapacity = $_GET["mouthCapacity"];
-	$speedThrow = $_GET["speedThrow"];
+	$strengthArm = $_GET["strengthArm"];
 	$accuracy = $_GET["accuracy"];
 	$luck = $_GET["luck"]; 
 	$drinkHoldability = $_GET["drinkHoldability"];
@@ -17,7 +17,7 @@
 	//$name = mysqli_real_escape_string($connection, $_POST['name']);
 	
 	$fighterDb = "fighterdb";
-	$sql = ("INSERT INTO ".$fighterDb." (name, speedRun, speedDrink, mouthCapacity, speedThrow, accuracy, luck, drinkHoldability, influence, occupied, playerId, value) VALUES ('".$name."', '".$speedRun."', '".$speedDrink."', '".$mouthCapacity."', '".$speedThrow."', '".$accuracy."', '".$luck."', '".$drinkHoldability."', '".$influence."', '".$occupied."', '".$playerId."', '".$value."')");
+	$sql = ("INSERT INTO ".$fighterDb." (name, speedRun, speedDrink, mouthCapacity, strengthArm, accuracy, luck, drinkHoldability, influence, occupied, playerId, value) VALUES ('".$name."', '".$speedRun."', '".$speedDrink."', '".$mouthCapacity."', '".$strengthArm."', '".$accuracy."', '".$luck."', '".$drinkHoldability."', '".$influence."', '".$occupied."', '".$playerId."', '".$value."')");
 	
 	if (!$connection) {
 		die('Could not connect: ' . mysqli_error($connection));

@@ -36,6 +36,14 @@ function clearTable() {
 /*
 * 
 */
+function smalLineTable() {   	
+    var x = document.getElementById("announcements").insertRow(numberOfFightingFighter).insertCell(0);
+    x.innerHTML = "-------------------------";
+}
+
+/*
+* 
+*/
 function announceFighting(nr, name, info) {
     var table = document.getElementById("announcements").insertRow(numberOfFightingFighter);
     var x = table.insertCell(0);
@@ -52,15 +60,15 @@ function announceFighting(nr, name, info) {
 		// yellow
 		y = ("<font color='#cccc00'>" + name + " " + FinishesSen+ " " + HisBeerSen + ".</font>");		
 	} else if(nr == 1) {
-		y += (" " + DrinksSen + " " + info);
+		y = ("&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" + name + " " + DrinksSen + " " + info);
 	}  else if(nr == 2) {
 		if(parseInt(info) == 0) {
 			y += (" " + MissesSen + ".");		
 			// light green
 			y = ("<font color='#49d049'>" + name + " " + MissesSen + ".</font>");
-		} else if(parseInt(info) < 30) {
+		} else if(parseInt(info) < 166) {
 			y += (" " + ThrowsSen + " " + AndHitsSen + ".");	
-		} else if(parseInt(info) < 75) {
+		} else {
 			// lila
 			y = ("<font color='#6600cc'>" + name + " " + ThrowsSen + " " + RealHardSen + " " + AndHitsSen + ".</font>");			
 		}
@@ -81,6 +89,7 @@ function announceFighting(nr, name, info) {
 		y += nr + info;
 	}
     x.innerHTML = y;
+	//console.log("nr: " + nr + " " + "name: " + name + " " + "info: " + info + " " + "y: " + " " + y);
 }
 
 /*
@@ -101,7 +110,7 @@ function firstLine() {
 	tableRow.insertCell(1).innerHTML = speedRunSen;
 	tableRow.insertCell(2).innerHTML = speedDrinkSen;
 	tableRow.insertCell(3).innerHTML = mouthCapacitySen;
-	tableRow.insertCell(4).innerHTML = speedThrowSen;
+	tableRow.insertCell(4).innerHTML = strengthArmSen;
 	tableRow.insertCell(5).innerHTML = accuracySen;
 	tableRow.insertCell(6).innerHTML = drinkHoldabilitySen;
 	tableRow.insertCell(7).innerHTML = priceSen;
@@ -142,7 +151,7 @@ function announceArrayOfFighter(arrayOfFighter, fighterNumber) {
 	tableRow.insertCell(1).innerHTML = arrayOfFighter[fighterNumber].speedRun;
 	tableRow.insertCell(2).innerHTML = arrayOfFighter[fighterNumber].speedDrink;
 	tableRow.insertCell(3).innerHTML = arrayOfFighter[fighterNumber].mouthCapacity;
-	tableRow.insertCell(4).innerHTML = arrayOfFighter[fighterNumber].speedThrow;
+	tableRow.insertCell(4).innerHTML = arrayOfFighter[fighterNumber].strengthArm;
 	tableRow.insertCell(5).innerHTML = arrayOfFighter[fighterNumber].accuracy;
 	tableRow.insertCell(6).innerHTML = arrayOfFighter[fighterNumber].drinkHoldability;
 	tableRow.insertCell(7).innerHTML = arrayOfFighter[fighterNumber].value;
@@ -161,7 +170,7 @@ function announceArrayOfFighterRadioButton(arrayOfFighter, fighterNumber) {
 	tableRow.insertCell(1).innerHTML = arrayOfFighter[fighterNumber].speedRun;
 	tableRow.insertCell(2).innerHTML = arrayOfFighter[fighterNumber].speedDrink;
 	tableRow.insertCell(3).innerHTML = arrayOfFighter[fighterNumber].mouthCapacity;
-	tableRow.insertCell(4).innerHTML = arrayOfFighter[fighterNumber].speedThrow;
+	tableRow.insertCell(4).innerHTML = arrayOfFighter[fighterNumber].strengthArm;
 	tableRow.insertCell(5).innerHTML = arrayOfFighter[fighterNumber].accuracy;
 	tableRow.insertCell(6).innerHTML = arrayOfFighter[fighterNumber].drinkHoldability;
 	tableRow.insertCell(7).innerHTML = arrayOfFighter[fighterNumber].value;

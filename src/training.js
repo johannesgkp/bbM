@@ -36,7 +36,7 @@ function throwTraining(fighterNumber) {
 	console.log(fighterArray[fighterNumber].occupied);
 	fighterArray[fighterNumber].occupied = addMinutes(5);
 	console.log(fighterArray[fighterNumber].occupied);
-	fighterArray[fighterNumber].speedThrow = parseInt(fighterArray[fighterNumber].speedThrow) + 1;
+	fighterArray[fighterNumber].strengthArm = parseInt(fighterArray[fighterNumber].strengthArm) + 1;
 	fighterArray[fighterNumber].accuracy = parseInt(fighterArray[fighterNumber].accuracy) + 0.5;
 	announceTraining(2, fighterArray[fighterNumber].name, fighterArray[fighterNumber].occupied);		
 	//console.log(fighterArray[fighterNumber].name + " " + will + " " + thro + " " + until + ": " + new Date(fighterArray[fighterNumber].occupied).toUTCString());

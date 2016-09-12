@@ -16,8 +16,6 @@ function purchase(fighterNumber) {
 		table.insertRow(0).innerHTML = purchasedSen + " " + buyableFighter[fighterNumber].name + ".";
 		// remove bought fighter form the buyableFighter
 		buyableFighter.splice(fighterNumber, 1);
-		// change the content of the DDL
-		fighterToDDL(buyableFighter);
 	} else {	
 		// announce that you dont have enough money
 		table.insertRow(0).innerHTML = notEnoughMoneySen + " " + buyableFighter[fighterNumber].name + ".";
@@ -35,7 +33,7 @@ function getGoods() {
 	var numberOffers = 6;
 	
 	for(i = 0; i < numberOffers; i++){
-		buyableFighter[i] = new Fighter(7, 5, 7, 5, 16, 12, 15, 10, 12, 8, 0.05, 0.1, 3, 5, 20);
+		buyableFighter[i] = getFighter();
 	}
 }
 

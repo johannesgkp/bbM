@@ -24,12 +24,13 @@ function prepareParkFight(teamArray) {
 	phase = 0;
 	
 	// how much the player has to pay if he losses (but not the beercost)
-	var costBeerFightGain = [0, 0, 0];
+	var costBeerFightGain = [0, 0, 0, false, false];
 	var i = 0;
 	// the first half of the array are the fighter from the player, the second half are the other team
 	var fightingFighter = new Array;
 	// nessecarie for the GUI because the teams are announced at the top of the table, so the fighting announcments have to start a few lines later
 	numberOfFightingFighter = 0;
+	clearTable();
 	
 	// fill the first half of the fightingFighter with the players team
 	for(i = 0; i < teamArray.length; i++) {
@@ -44,7 +45,7 @@ function prepareParkFight(teamArray) {
 	
 	// fill the second half of the fightingFighter with random fighters
 	for(i = 0; i < teamArray.length; i++) {
-		fightingFighter[(teamArray.length + i)] = new Fighter(15, 5, 12, 3, 16, 4, 15, 5, 20, 10, 0.05, 0.1, 3, 5, 20);
+		fightingFighter[(teamArray.length + i)] = getFighter();
 		// announce Teammembernames
 	announceFighting(4, fightingFighter[(teamArray.length + i)].name, "");
 	}
@@ -56,8 +57,8 @@ function prepareParkFight(teamArray) {
 	numberOfFightingFighter = (fightingFighter.length + 2);
 	
 	// cost Fight is 0 if the fighters are already occupied or the player has not enough money
-	if(costBeerFightGain[1] > 0) {
-		fight(fightingFighter, costBeerFightGain, 0, 0.09, 0.3, 2, 100);
+	if(costBeerFightGain[3] && costBeerFightGain[4]) {
+		fight(fightingFighter, costBeerFightGain, 0.26, 0.8, 15, 330);
 		// changes the ammount of money the player has
 		loadTopHUD();
 		save();
@@ -71,13 +72,14 @@ function prepareTestFight(teamArray) {
 	phase = 0;
 	
 	// how much the player has to pay if he losses (but not the beercost)
-	var costBeerFightGain = [0, 1, 0];
+	var costBeerFightGain = [0, 0, 0, true, true];
 	var i = 0;
 	// the first half of the array are the fighter from the player, the second half are the other team
 	var fightingFighter = new Array;
 	// nessecarie for the GUI because the teams are announced at the top of the table, so the fighting announcments have to start a few lines later
 	numberOfFightingFighter = 0;
-	
+	clearTable();
+		
 	// fill the first half of the fightingFighter with the players team
 	for(i = 0; i < teamArray.length; i++) {
 		// the fighter need to get a new beer
@@ -91,22 +93,23 @@ function prepareTestFight(teamArray) {
 	
 	// fill the second half of the fightingFighter with random fighters
 	for(i = 0; i < teamArray.length; i++) {
-		fightingFighter[(teamArray.length + i)] = new Fighter(15, 5, 12, 3, 16, 4, 15, 5, 20, 10, 0.05, 0.1, 3, 5, 20);
+		fightingFighter[(teamArray.length + i)] = new Fighter(90, 20, 15, 10, 23, 5, 60, 15, 33, 15, 8, 6, 3, 4, 20);
 		// announce Teammembernames
 	announceFighting(4, fightingFighter[(teamArray.length + i)].name, "");
 	}
 	
+	//costBeerFightGain = checkMoneyAndTime(fightingFighter, 0);
 	
 	// announce Team
 	announceFighting(5, "", "1");
 	numberOfFightingFighter = (fightingFighter.length + 2);
 	
 	// cost Fight is 0 if the fighters are already occupied or the player has not enough money
-	if(costBeerFightGain[1] > 0) {
-		fight(fightingFighter, costBeerFightGain, 0.09, 0.3, 2, 100);
+	if(costBeerFightGain[3] && costBeerFightGain[4]) {		
+		fight(fightingFighter, costBeerFightGain, 0.26, 0.8, 15, 330);
 		// changes the ammount of money the player has
 		loadTopHUD();
-		save();
+		//save();
 	}
 }
 
@@ -119,7 +122,6 @@ function fight(fightingFighter, costBeerFightGain, accuracyNeededToHitBottle, ac
 
 	var gameOver = false;
 	// right now the active fighter is the first member of a team but never the second or third... 
-	var activeFighter = 0;
 	var fFLengthHalf = (fightingFighter.length / 2);
 	var activeFighter = 0;
 	var i = 0;
@@ -139,7 +141,7 @@ function fight(fightingFighter, costBeerFightGain, accuracyNeededToHitBottle, ac
 	
 	player.money -= costBeerFightGain[0];
 	
-	while((!gameOver) && (numberOfRounds < 500)) {
+	while((!gameOver) && (numberOfRounds < 200)) {
 		numberOfRounds++;
 		// activeFighter throws
 		throwOutcome = fightingFighter[activeFighter].throwing(fieldLength, strengthNeededToHitBottle, accuracyNeededToHitBottle, accuracyNeededToBounceBack);
@@ -156,7 +158,7 @@ function fight(fightingFighter, costBeerFightGain, accuracyNeededToHitBottle, ac
 					gameOver = false;
 				}
 			} else {
-				fightingFighter[i].drinking(catchTime);
+				fightingFighter[(i + fFLengthHalf)].drinking(catchTime);
 				if(fightingFighter[i].beer.liter != 0){
 					// if one member of the team still has beer left the game isnt over
 					gameOver = false;
@@ -164,7 +166,10 @@ function fight(fightingFighter, costBeerFightGain, accuracyNeededToHitBottle, ac
 			}
 		}
 		if(!gameOver) {
-			if((numberOfRounds % 2) == 0) {
+			if((numberOfRounds % 4) == 0) {
+				smalLineTable()
+				activeFighter--;
+			} else if((numberOfRounds % 2) == 0) {
 				activeFighter++;
 			}
 			activeFighter = ((activeFighter + fFLengthHalf) % fightingFighter.length);	
@@ -211,6 +216,8 @@ function fight(fightingFighter, costBeerFightGain, accuracyNeededToHitBottle, ac
 */
 function checkMoneyAndTime(fightingFighter) {
 	var i = 0;
+	//[costBeer, costFight, gainFight, enoughMoney?, time?]
+	var result = [0, 0, 0, false, false];
 	// if all fighter arent occupied
 	var occupiedArray = checkTimeArray(fightingFighter);
 	if(occupiedArray[0]) {
@@ -228,19 +235,20 @@ function checkMoneyAndTime(fightingFighter) {
 		
 		// if player can afford to loose
 		if((costBeer + costFight) <= player.money){
-			return [costBeer, costFight, gainFight];
+			result = [costBeer, costFight, gainFight, true, true];
 		} else {
 			// announce not enough money
 			announceFighting(7, "", "");
-			return [0, 0, 0];
+			
+			result = [costBeer, costFight, gainFight, false, true];
 		}
 	} else {
 		// announce fighters are occupied
 		for(i = 1; i < occupiedArray.length; i++) {
 			announceFighting(6, fightingFighter[(i - 1)].name, fightingFighter[(i - 1)].occupied);				
 		}
-		return [0, 0, 0];
 	}
+	return result;
 }
 
 /*
