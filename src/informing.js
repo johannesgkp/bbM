@@ -8,15 +8,15 @@ function info() {
 function insultsTest() {  
 	var dummy = getFighter();
 	console.log("insults:");
-	console.log(dummy.insults[0][1]);
-	console.log(dummy.insults[1][1]);
-	console.log(dummy.insults[2][1]);
-	console.log(dummy.insults[3][1]);
+	console.log(getInsult(dummy.insults[0]));
+	console.log(getInsult(dummy.insults[1]));
+	console.log(getInsult(dummy.insults[2]));
+	console.log(getInsult(dummy.insults[3]));
 	console.log("nervousness:")
-	console.log(dummy.nervousness[0][1]);
-	console.log(dummy.nervousness[1][1]);
-	console.log(dummy.nervousness[2][1]);
-	console.log(dummy.nervousness[3][1]);
+	console.log(getInsult(dummy.nervousness[0]));
+	console.log(getInsult(dummy.nervousness[1]));
+	console.log(getInsult(dummy.nervousness[2]));
+	console.log(getInsult(dummy.nervousness[3]));
 }
 
 

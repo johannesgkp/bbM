@@ -293,8 +293,8 @@ function getInsult(nr) {
 	];
 	
 	if(nr < 0) {
-		result = insults.slice();;
-	} else if (nr >= insults.lentgh) {
+		result = insults.length;;
+	} else if (nr >= insults.length) {
 		nr = 0;
 	}
 	
@@ -310,32 +310,31 @@ function getInsult(nr) {
 */
 
 function getSomeInsults(knowledge, ammount) {
-	var result = new Array();
+	var result;
 	var nr = 0;
 	var i = 0;
 	
-	var insults = getInsult(-1);
+	var insultsLength = getInsult(-1);
 	
 	if(knowledge < 1) {
 		knowledge = 1;
-	} else if(knowledge >= insults.length) {
-		knowledge = (insults.length - 1);
+	} else if(knowledge >= insultsLength) {
+		knowledge = (insultsLength - 1);
 	}
 	
 	if(ammount > knowledge) {
 		ammount = knowledge;
 	}
 	
+	result = new Array(ammount);
+	
 	for(i = 0; i < ammount; i++) {
 		nr = Math.round(Math.random() * (knowledge));
-		if(insults[nr][1].length > 0){
-		result[i] = new Array(2);
-		result[i][0] = parseInt(insults[nr][0]);
-		result[i][1] = insults[nr][1];
+		if(result.indexOf(nr) == -1) {
+			result[i] = nr;	
 		} else {
 			i--;
 		}
-		insults[nr][1] = "";
 	}
 	return result;
 }
