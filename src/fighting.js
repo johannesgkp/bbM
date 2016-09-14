@@ -1,7 +1,7 @@
 /*
 * 
 */
-function getCheckedCheckboxesFor(checkboxName, callback) {
+Game.prototype.getCheckedCheckboxesFor = function(checkboxName, callback) {
     var checkboxes = document.querySelectorAll('input[name="' + checkboxName + '"]:checked'), values = new Array;
 	
     Array.prototype.forEach.call(checkboxes, function(el) {
@@ -15,12 +15,12 @@ function getCheckedCheckboxesFor(checkboxName, callback) {
 		} else {
 			return values;			
 	}	
-}
+};
 
 /*
 * 
 */
-function prepareParkFight(teamArray) {	
+Game.prototype.prepareParkFight = function(teamArray) {
 	phase = 0;
 	
 	// how much the player has to pay if he losses (but not the beercost)
@@ -29,46 +29,46 @@ function prepareParkFight(teamArray) {
 	// the first half of the array are the fighter from the player, the second half are the other team
 	var fightingFighter = new Array;
 	// nessecarie for the GUI because the teams are announced at the top of the table, so the fighting announcments have to start a few lines later
-	numberOfFightingFighter = 0;
-	clearTable();
+	this.this.numberOfFightingFighter = 0;
+	this.clearTable();
 	
 	// fill the first half of the fightingFighter with the players team
 	for(i = 0; i < teamArray.length; i++) {
 		// the fighter need to get a new beer
-		fighterArray[teamArray[i]].beer = getBeer(player.beerId);
-		fightingFighter[i] = fighterArray[teamArray[i]];
+		this.fighterArray[teamArray[i]].beer = getBeer(player.beerId);
+		fightingFighter[i] = this.fighterArray[teamArray[i]];
 		// announce Teammembernames
-		announceFighting(4, fightingFighter[i].name, "");
+		this.announceFighting(4, fightingFighter[i].name, "");
 	}
 	
-	announceFighting(5, "", "2");
+	this.announceFighting(5, "", "2");
 	
 	// fill the second half of the fightingFighter with random fighters
 	for(i = 0; i < teamArray.length; i++) {
 		fightingFighter[(teamArray.length + i)] = getFighter();
 		// announce Teammembernames
-	announceFighting(4, fightingFighter[(teamArray.length + i)].name, "");
+	this.announceFighting(4, fightingFighter[(teamArray.length + i)].name, "");
 	}
 	
-	costBeerFightGain = checkMoneyAndTime(fightingFighter, 0);
+	costBeerFightGain = this.checkMoneyAndTime(fightingFighter, 0);
 	
 	// announce Team
-	announceFighting(5, "", "1");
-	numberOfFightingFighter = (fightingFighter.length + 2);
+	this.announceFighting(5, "", "1");
+	this.this.numberOfFightingFighter = (fightingFighter.length + 2);
 	
 	// cost Fight is 0 if the fighters are already occupied or the player has not enough money
 	if(costBeerFightGain[3] && costBeerFightGain[4]) {
-		fight(fightingFighter, costBeerFightGain, 0.26, 0.8, 15, 330);
+		this.fight(fightingFighter, costBeerFightGain, 0.26, 0.8, 15, 330);
 		// changes the ammount of money the player has
-		loadTopHUD();
-		save();
+		this.loadTopHUD();
+		this.save();
 	}
-}
+};
 
 /*
 * 
 */
-function prepareTestFight(teamArray) {	
+Game.prototype.prepareTestFight = function(teamArray) {
 	phase = 0;
 	
 	// how much the player has to pay if he losses (but not the beercost)
@@ -77,48 +77,48 @@ function prepareTestFight(teamArray) {
 	// the first half of the array are the fighter from the player, the second half are the other team
 	var fightingFighter = new Array;
 	// nessecarie for the GUI because the teams are announced at the top of the table, so the fighting announcments have to start a few lines later
-	numberOfFightingFighter = 0;
-	clearTable();
+	this.numberOfFightingFighter = 0;
+	this.clearTable();
 		
 	// fill the first half of the fightingFighter with the players team
 	for(i = 0; i < teamArray.length; i++) {
 		// the fighter need to get a new beer
-		fighterArray[teamArray[i]].beer = getBeer(player.beerId);
-		fightingFighter[i] = fighterArray[teamArray[i]];
+		this.fighterArray[teamArray[i]].beer = this.getBeer(player.beerId);
+		fightingFighter[i] = this.fighterArray[teamArray[i]];
 		// announce Teammembernames
-		announceFighting(4, fightingFighter[i].name, "");
+		this.announceFighting(4, fightingFighter[i].name, "");
 	}
 	
-	announceFighting(5, "", "2");
+	this.announceFighting(5, "", "2");
 	
 	// fill the second half of the fightingFighter with random fighters
 	for(i = 0; i < teamArray.length; i++) {
 		fightingFighter[(teamArray.length + i)] = new Fighter(90, 20, 15, 10, 23, 5, 60, 15, 33, 15, 8, 6, 3, 4, 20);
 		// announce Teammembernames
-	announceFighting(4, fightingFighter[(teamArray.length + i)].name, "");
+	this.announceFighting(4, fightingFighter[(teamArray.length + i)].name, "");
 	}
 	
 	//costBeerFightGain = checkMoneyAndTime(fightingFighter, 0);
 	
 	// announce Team
-	announceFighting(5, "", "1");
-	numberOfFightingFighter = (fightingFighter.length + 2);
+	this.announceFighting(5, "", "1");
+	this.numberOfFightingFighter = (fightingFighter.length + 2);
 	
 	// cost Fight is 0 if the fighters are already occupied or the player has not enough money
 	if(costBeerFightGain[3] && costBeerFightGain[4]) {		
-		fight(fightingFighter, costBeerFightGain, 0.26, 0.8, 15, 330);
+		this.fight(fightingFighter, costBeerFightGain, 0.26, 0.8, 15, 330);
 		// changes the ammount of money the player has
-		loadTopHUD();
-		//save();
+		this.loadTopHUD();
+		//this.save();
 	}
-}
+};
 
 /*
 * 
 */
-function fight(fightingFighter, costBeerFightGain, accuracyNeededToHitBottle, accuracyNeededToBounceBack, strengthNeededToHitBottle, fieldLength) {	
+Game.prototype.fight = function(fightingFighter, costBeerFightGain, accuracyNeededToHitBottle, accuracyNeededToBounceBack, strengthNeededToHitBottle, fieldLength) {
 	// the cost of the beer has been taken from the player
-	loadTopHUD();
+	this.loadTopHUD();
 
 	var gameOver = false;
 	// right now the active fighter is the first member of a team but never the second or third... 
@@ -139,7 +139,7 @@ function fight(fightingFighter, costBeerFightGain, accuracyNeededToHitBottle, ac
 	// in s
 	var catchTime;
 	
-	player.money -= costBeerFightGain[0];
+	this.player.money -= costBeerFightGain[0];
 	
 	while((!gameOver) && (numberOfRounds < 200)) {
 		numberOfRounds++;
@@ -167,7 +167,7 @@ function fight(fightingFighter, costBeerFightGain, accuracyNeededToHitBottle, ac
 		}
 		if(!gameOver) {
 			if((numberOfRounds % 4) == 0) {
-				smalLineTable()
+				this.smalLineTable()
 				activeFighter--;
 			} else if((numberOfRounds % 2) == 0) {
 				activeFighter++;
@@ -184,15 +184,15 @@ function fight(fightingFighter, costBeerFightGain, accuracyNeededToHitBottle, ac
 	
 	for(i = 0; i < fFLengthHalf; i++) {
 		// winner
-		announceFighting(3, fightingFighter[(activeFighter + i)].name, "");			
+		this.announceFighting(3, fightingFighter[(activeFighter + i)].name, "");			
 	}
 	
 	if(activeFighter < fFLengthHalf) {
 		// win
-		player.money += costBeerFightGain[2];
+		this.player.money += costBeerFightGain[2];
 	} else {
 		// lost
-		player.money -= costBeerFightGain[1];
+		this.player.money -= costBeerFightGain[1];
 	}
 	
 	activeFighter = ((activeFighter + fFLengthHalf) % fightingFighter.length);	
@@ -200,13 +200,13 @@ function fight(fightingFighter, costBeerFightGain, accuracyNeededToHitBottle, ac
 	for(i = 0; i < fFLengthHalf; i++) {
 		// looser chucks beer
 		if(fightingFighter[(activeFighter + i)].beer.liter > 0){
-			announceFighting(8, fightingFighter[(activeFighter + i)].name, "");
+			this.announceFighting(8, fightingFighter[(activeFighter + i)].name, "");
 		}
 		// fighter are busy for the next 5 minuts
-		fightingFighter[i].occupied = addMinutes(5);
+		fightingFighter[i].occupied = this.addMinutes(5);
 	}
 	console.log("numberOfRounds: " + numberOfRounds);
-}
+};
 
 /*
 * cost and gain are computet the same way
@@ -214,7 +214,7 @@ function fight(fightingFighter, costBeerFightGain, accuracyNeededToHitBottle, ac
 * @param fightingFighter array
 * @return array [cost of beer, cost you have to pay if you loose, money(gain) you win]
 */
-function checkMoneyAndTime(fightingFighter) {
+Game.prototype.checkMoneyAndTime = function(fightingFighter) {
 	var i = 0;
 	//[costBeer, costFight, gainFight, enoughMoney?, time?]
 	var result = [0, 0, 0, false, false];
@@ -222,7 +222,7 @@ function checkMoneyAndTime(fightingFighter) {
 	var occupiedArray = checkTimeArray(fightingFighter);
 	if(occupiedArray[0]) {
 		var numberHalfFighters = (fightingFighter.length / 2);
-		var costBeer = getBeer(player.beerId).cost * (numberHalfFighters * 2);
+		var costBeer = (this.getBeer(player.beerId).cost * (numberHalfFighters * 2));
 		var costFight = 0;
 		var gainFight = 0;
 		
@@ -238,25 +238,25 @@ function checkMoneyAndTime(fightingFighter) {
 			result = [costBeer, costFight, gainFight, true, true];
 		} else {
 			// announce not enough money
-			announceFighting(7, "", "");
+			this.announceFighting(7, "", "");
 			
 			result = [costBeer, costFight, gainFight, false, true];
 		}
 	} else {
 		// announce fighters are occupied
 		for(i = 1; i < occupiedArray.length; i++) {
-			announceFighting(6, fightingFighter[(i - 1)].name, fightingFighter[(i - 1)].occupied);				
+			this.announceFighting(6, fightingFighter[(i - 1)].name, fightingFighter[(i - 1)].occupied);				
 		}
 	}
 	return result;
-}
+};
 
 /*
 * check wether all fighter have time to fight
 * @param fightingFighter, array
 * @return true, if no fighter is occupied
 */
-function checkTimeArray(fightingFighter) {
+Game.prototype.checkTimeArray = function(fightingFighter) {
 	var result = new Array();
 	var i = 0;
 	result[0] = true;
@@ -267,4 +267,4 @@ function checkTimeArray(fightingFighter) {
 		}
 	}
 	return result;
-}
+};

@@ -1,9 +1,8 @@
 /*
 * 
 */
-function announceTraining(nr, name, info) {   
-	var table = document.getElementById("announcements").insertRow(0);
-    var x = table.insertCell(0);
+Game.prototype.announceTraining = function(nr, name, info) {
+    var x = this.table.insertCell(0);
 	var y = name;
 	var time = new Date(parseInt(info));
 	var hour = time.getHours();
@@ -12,39 +11,39 @@ function announceTraining(nr, name, info) {
 	time = time.toUTCString();
 	
 	if(nr < 1){
-		y += (" " + willSen + " " + runSen + " " + untilSen + ": " + time);
+		y += (" " + this.willSen + " " + this.runSen + " " + this.untilSen + ": " + time);
 	} else if (nr < 2) {
-		y += (" " + willSen + " " + drinkSen + " " + untilSen + ": " + time);
+		y += (" " + this.willSen + " " + this.drinkSen + " " + this.untilSen + ": " + time);
 	} else if (nr < 3) {
-		y += (" " + willSen + " " + throwSen + " " + untilSen + ": " + time);
+		y += (" " + this.willSen + " " + this.throwSen + " " + this.untilSen + ": " + time);
 	} else {
-		y +=(" " + isBusySen + " " + untilSen + ": " + time);
+		y +=(" " + this.isBusySen + " " + this.untilSen + ": " + time);
 	}
     x.innerHTML = y;
-}
+};
 
 /*
 * 
 */
-function clearTable() {   	
+Game.prototype.clearTable = function() {
 	var table = document.getElementById("announcements");
 	while(table.rows[0]) {
 		table.deleteRow(0);
 	}
-}
+};
 
 /*
 * 
 */
-function smalLineTable() {   	
+Game.prototype.smalLineTable = function() {
     var x = document.getElementById("announcements").insertRow(numberOfFightingFighter).insertCell(0);
     x.innerHTML = "-------------------------";
-}
+};
 
 /*
 * 
 */
-function announceFighting(nr, name, info) {
+Game.prototype.announceFighting = function(nr, name, info) {
     var table = document.getElementById("announcements").insertRow(numberOfFightingFighter);
     var x = table.insertCell(0);
 	var y = name;
@@ -58,90 +57,90 @@ function announceFighting(nr, name, info) {
 	
 	if(nr == 0) {
 		// yellow
-		y = ("<font color='#cccc00'>" + name + " " + FinishesSen+ " " + HisBeerSen + ".</font>");		
+		y = ("<font color='#cccc00'>" + name + " " + this.FinishesSen + " " + this.HisBeerSen + ".</font>");		
 	} else if(nr == 1) {
-		y = ("&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" + name + " " + DrinksSen + " " + info);
+		y = ("&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" + name + " " + this.DrinksSen + " " + info);
 	}  else if(nr == 2) {
 		if(parseInt(info) == 0) {
-			y += (" " + MissesSen + ".");		
+			y += (" " + this.MissesSen + ".");		
 			// light green
-			y = ("<font color='#49d049'>" + name + " " + MissesSen + ".</font>");
+			y = ("<font color='#49d049'>" + name + " " +this.MissesSen + ".</font>");
 		} else if(parseInt(info) < 166) {
-			y += (" " + ThrowsSen + " " + AndHitsSen + ".");	
+			y += (" " + this.ThrowsSen + " " + this.AndHitsSen + ".");	
 		} else {
 			// lila
-			y = ("<font color='#6600cc'>" + name + " " + ThrowsSen + " " + RealHardSen + " " + AndHitsSen + ".</font>");			
+			y = ("<font color='#6600cc'>" + name + " " + this.ThrowsSen + " " + this.RealHardSen + " " + this.AndHitsSen + ".</font>");			
 		}
 	}  else if(nr == 3) {
 		// golden
-		y = ("<font color='#999900'>" + name + " " + WinsSen + ".</font>");
+		y = ("<font color='#999900'>" + name + " " + this.WinsSen + ".</font>");
 	}  else if(nr == 4) {
 		
 	}  else if(nr == 5) {
 		y += (teamSen + " " + info + ":");
 	}  else if(nr == 6) {
-		y += (" " + isBusySen + "s " + untilSen + ": " + time + " " + thereForHeCannotFightSen);
+		y += (" " + this.isBusySen + "s " + this.untilSen + ": " + time + " " + this.thereForHeCannotFightSen);
 	}  else if(nr == 7) {
-		y += (notEnoughMoneyForTheBeerAndStuffSen);
+		y += (this.notEnoughMoneyForTheBeerAndStuffSen);
 	}  else if(nr == 8) {
-		y += (" " + chucksHisBeerSen + ".");
+		y += (" " + this.chucksHisBeerSen + ".");
 	} else {
 		y += nr + info;
 	}
     x.innerHTML = y;
 	//console.log("nr: " + nr + " " + "name: " + name + " " + "info: " + info + " " + "y: " + " " + y);
-}
+};
 
 /*
 * 
 */
-function loadTopHUD() {
-	document.getElementById("topHUD").innerHTML = player.name + " " + Math.round(player.money) + "$";
-}
+Game.prototype.loadTopHUD = function() {
+	document.getElementById("topHUD").innerHTML = this.player.name + " " + Math.round(this.player.money) + "$";
+};
 
 /*
 * 
 */
-function firstLine() { 
+Game.prototype.firstLine = function() {
 	var table = document.getElementById("announcements");  
 	tableRow = table.insertRow(0);
 	
-	tableRow.insertCell(0).innerHTML = nameSen;
-	tableRow.insertCell(1).innerHTML = speedRunSen;
-	tableRow.insertCell(2).innerHTML = speedDrinkSen;
-	tableRow.insertCell(3).innerHTML = mouthCapacitySen;
-	tableRow.insertCell(4).innerHTML = strengthArmSen;
-	tableRow.insertCell(5).innerHTML = accuracySen;
-	tableRow.insertCell(6).innerHTML = drinkHoldabilitySen;
-	tableRow.insertCell(7).innerHTML = priceSen;
-}
+	tableRow.insertCell(0).innerHTML = this.nameSen;
+	tableRow.insertCell(1).innerHTML = this.speedRunSen;
+	tableRow.insertCell(2).innerHTML = this.speedDrinkSen;
+	tableRow.insertCell(3).innerHTML = this.mouthCapacitySen;
+	tableRow.insertCell(4).innerHTML = this.strengthArmSen;
+	tableRow.insertCell(5).innerHTML = this.accuracySen;
+	tableRow.insertCell(6).innerHTML = this.drinkHoldabilitySen;
+	tableRow.insertCell(7).innerHTML = this.priceSen;
+};
 
 /*
 * 
 */
-function checkAll() {
+Game.prototype.checkAll = function() {
 	var teamCheckBoxes = document.getElementsByName("team");
 	var i = 0;
 	for(i = 0; i < teamCheckBoxes.length; i++) {
 		teamCheckBoxes[i].checked = true;
 	}
-}
+};
 
 /*
 * 
 */
-function unCheckAll() {
+Game.prototype.unCheckAll = function() {
 	var teamCheckBoxes = document.getElementsByName("team");
 	var i = 0;
 	for(i = 0; i < teamCheckBoxes.length; i++) {
 		teamCheckBoxes[i].checked = false;
 	}
-}
+};
 
 /*
 * 
 */
-function announceArrayOfFighter(arrayOfFighter, fighterNumber) {
+Game.prototype.announceArrayOfFighter = function(arrayOfFighter, fighterNumber) {
 	if(fighterNumber < 0) {
 		fighterNumber = fighterDDL.options[fighterDDL.selectedIndex].value;		
 	}
@@ -155,12 +154,12 @@ function announceArrayOfFighter(arrayOfFighter, fighterNumber) {
 	tableRow.insertCell(5).innerHTML = arrayOfFighter[fighterNumber].accuracy;
 	tableRow.insertCell(6).innerHTML = arrayOfFighter[fighterNumber].drinkHoldability;
 	tableRow.insertCell(7).innerHTML = arrayOfFighter[fighterNumber].value;
-}
+};
 
 /*
 * 
 */
-function announceArrayOfFighterRadioButton(arrayOfFighter, fighterNumber) {
+Game.prototype.announceArrayOfFighterRadioButton = function(arrayOfFighter, fighterNumber) {
 	if(fighterNumber < 0) {
 		fighterNumber = fighterDDL.options[fighterDDL.selectedIndex].value;		
 	}
@@ -175,4 +174,4 @@ function announceArrayOfFighterRadioButton(arrayOfFighter, fighterNumber) {
 	tableRow.insertCell(6).innerHTML = arrayOfFighter[fighterNumber].drinkHoldability;
 	tableRow.insertCell(7).innerHTML = arrayOfFighter[fighterNumber].value;
 	
-}
+};

@@ -3,101 +3,49 @@
 	<head>
 		<meta charset="utf-8"/>
 	</head>
-	<body onload="loadPlayer();">	
+	<body onload="pups = new Game(); pups.loadPlayer()">	
 		<p id="topHUD"></p>
 		<h1>BierballManager</h1>
 		
-		<input type="button" id="fightButton" onclick="guiFight();" value="Fight" />
+		<input type="button" id="fightButton" onclick="pups.guiFight();" value="Fight" />
 		
-		<input type="button" id="trainButton" onclick="train();" value="Train" />
+		<input type="button" id="trainButton" onclick="pups.train();" value="Train" />
 		
-		<input type="button" id="buyButton" onclick="guiBuy();" value="Buy" />
+		<input type="button" id="buyButton" onclick="pups.guiBuy();" value="Buy" />
 		
-		<input type="button" id="saveButton" onclick="save();" value="Save" />
+		<input type="button" id="saveButton" onclick="pups.save();" value="Save" />
 		
-		<input type="button" id="infoButton" onclick="info();" value="Info" />
+		<input type="button" id="infoButton" onclick="pups.info();" value="Info" />
 				
 		<table id="announcements", style="border: 1px solid black">
 		</table>	
 		
-		<input type="button" id="runButton" onclick="checkTime(runTraining);" value="Run" style="display: none" />
+		<input type="button" id="runButton" onclick="pups.checkTime(this.runTraining);" value="Run" style="display: none" />
 		
-		<input type="button" id="drinkButton" onclick="checkTime(drinkTraining);" value="Drink" style="display: none" />
+		<input type="button" id="drinkButton" onclick="pups.checkTime(this.drinkTraining);" value="Drink" style="display: none" />
 		
-		<input type="button" id="throwButton" onclick="checkTime(throwTraining);" value="Throw" style="display: none" />
+		<input type="button" id="throwButton" onclick="pups.checkTime(this.throwTraining);" value="Throw" style="display: none" />
 		
-		<input type="button" id="testFight" onclick="getCheckedCheckboxesFor('team', prepareTestFight);" value="testFight" style="display: none" />
+		<input type="button" id="testFight" onclick="pups.getCheckedCheckboxesFor('team', this.prepareTestFight);" value="testFight" style="display: none" />
 		
-		<input type="button" id="parkFight" onclick="getCheckedCheckboxesFor('team', prepareParkFight);" value="parkFight" style="display: none" />
+		<input type="button" id="parkFight" onclick="pups.getCheckedCheckboxesFor('team', this.prepareParkFight);" value="parkFight" style="display: none" />
 		
 		<input type="button" id="turnierFight" value="turnierFight" style="display: none" />
 		
-		<script>
-			// i dont know why i did this
-			var phase = 2;
-			var player = new Array;
-			// fighters from the player
-			var fighterArray = new Array;
-			var buyableFighter = new Array;
-			// neccesary for gui
-			var numberOfFightingFighter = 0;
-			
-			// language changing?_?
-			var DrinksSen = "drinks";
-			var FinishesSen = "finishes";
-			var HisBeerSen = "his beer";
-			var ThrowsSen = "throws";
-			var MissesSen = "misses";
-			var AndHitsSen = "and hits";
-			var RealHardSen = "real hard";
-			var WinsSen = "wins";
-			var teamSen = "Team";
-			var thereForHeCannotFightSen = "therefor he cannot fight.";
-			var notEnoughMoneyForTheBeerAndStuffSen = "Not enough money for the beer and stuff.";
-			var chucksHisBeerSen = "chucks his beer";
-			
-			/*
-			var DrinksSen = "trinkt";
-			var FinishesSen = "leert";
-			var HisBeerSen = "sein Bier";
-			var ThrowsSen = "wirft";
-			var MissesSen = "verfehlt";
-			var AndHitsSen = "und trifft";
-			var RealHardSen = "sehr stark";
-			var WinsSen = "gewinnt";
-			*/
-	
-			var notEnoughMoneySen = "Not enough Money to purchase: ";
-			var purchasedSen = "Purchased";
-			var nameSen = "Name";
-			var speedRunSen = "SpeedRun";
-			var speedDrinkSen = "SpeedDrink";
-			var mouthCapacitySen = "MouthCapacity";
-			var strengthArmSen = "StrengthArm";
-			var accuracySen = "Accuracy";
-			var drinkHoldabilitySen = "DrinkHoldability";
-			var priceSen = "Price";
-			
-			var willSen = "will";
-			var runSen = "run";
-			var drinkSen = "drink";
-			var throwSen = "throw";
-			var isBusySen = "is busy";
-			var untilSen = "until";
-			var trainsAllreadySen = " trains allready!";
-			var selectAFighterSen = "Select a fighter.";
-		</script>
+		<script src = "beer.js"></script>
+		<script src = "buying.js"></script>
+		<script src = "fighter.js"></script>
+		<script src = "fighting.js"></script>
+		<script src = "game.js"></script>
+		<script src = "gui.js"></script>
+		<script src = "informing.js"></script>
 		<script src = "loadFighter.js"></script>
 		<script src = "loadPlayer.js"></script>
-		<script src = "training.js"></script>
-		<script src = "buying.js"></script>
-		<script src = "saving.js"></script>
-		<script src = "fighting.js"></script>
-		<script src = "fighter.js"></script>
 		<script src = "oldFighter.js"></script>
-		<script src = "beer.js"></script>
-		<script src = "informing.js"></script>
-		<script src = "gui.js"></script>
+		<script src = "player.js"></script>
+		<script src = "training.js"></script>
+		<script src = "saving.js"></script>
+		<script src = "training.js"></script>
 		<script src = "writeInfo.js"></script>
 		
 	</body>

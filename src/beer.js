@@ -20,7 +20,7 @@ function beerBottle(name, liter, speedDrink, capacity, alcoholByVolume, value) {
 * @param beerId, to identifie which beer is beeing used
 * @return beer, construted by beerBottle()
 */
-function getBeer(beerId) {
+Game.prototype.getBeer = function(beerId) {
 	if(beerId == 0) {
 		return new beerBottle("LoewenBraeu", 500, 1, 500, 5.8, 1);
 	} else if(beerId == 1) {
@@ -34,4 +34,4 @@ function getBeer(beerId) {
 	} else {
 		return false;
 	}
-}
+};

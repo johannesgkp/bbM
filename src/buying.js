@@ -1,55 +1,34 @@
 /*
-* adds a fighter from buyableFighter to your fighterArray if you cann afford it
+* adds a fighter from this.buyableFighter to your fighterArray if you cann afford it
 */
-function purchase(fighterNumber) {	
-	//var fighterDDL = document.getElementById("fighterDDL");
-	//var fighterNumber = fighterDDL.options[fighterDDL.selectedIndex].value;
-	var table = document.getElementById("announcements");
-	
+Game.prototype.purchase = function(fighterNumber) {	
 	// if you can afford the fighter
-	if(player.money >= buyableFighter[fighterNumber].value){
+	if(this.player.money >= this.buyableFighter[fighterNumber].value){
 		// pay
-		player.money -= buyableFighter[fighterNumber].value;
+		this.player.money -= this.buyableFighter[fighterNumber].value;
 		// add the fighter to your fighterArray
-		fighterArray[fighterArray.length] = buyableFighter[fighterNumber];
+		this.fighterArray[this.fighterArray.length] = this.buyableFighter[fighterNumber];
 		// announce buying
-		table.insertRow(0).innerHTML = purchasedSen + " " + buyableFighter[fighterNumber].name + ".";
-		// remove bought fighter form the buyableFighter
-		buyableFighter.splice(fighterNumber, 1);
+		table.insertRow(0).innerHTML = this.purchasedSen + " " + this.buyableFighter[fighterNumber].name + ".";
+		// remove bought fighter form the this.buyableFighter
+		this.buyableFighter.splice(fighterNumber, 1);
 	} else {	
 		// announce that you dont have enough money
-		table.insertRow(0).innerHTML = notEnoughMoneySen + " " + buyableFighter[fighterNumber].name + ".";
+		table.insertRow(0).innerHTML = this.notEnoughMoneySen + " " + this.buyableFighter[fighterNumber].name + ".";
 	}
-	guiBuy();
-}
+	this.guiBuy();
+};
 
 /*
 * creates fighters, that can be bought
 * only creates Fighter in the same range at the Time
 * later it should be like 3 bad 3 middle and 3 good(expansive) fighters
 */
-function getGoods() {   	
+Game.prototype.getGoods = function() {
 	var i = 0;
 	var numberOffers = 6;
 	
 	for(i = 0; i < numberOffers; i++){
-		buyableFighter[i] = getFighter();
+		this.buyableFighter[i] = this.getFighter();
 	}
-}
-
-/*
-* 
-*/
-function phaseId() {   
-	if(phase == 0) {
-		
-	} else if (phase == 1) {
-		
-	} else if (phase == 2) {
-		announceArrayOfFighter(buyableFighter, -1);
-	} else if (phase == 3) {
-		
-	} else {
-		
-	}
-}
+};

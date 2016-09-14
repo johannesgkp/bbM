@@ -1,7 +1,7 @@
 /*
 * 
 */
-function guiTrain() {	
+Game.prototype.guiTrain = function() {
 	// GUI changes
 	
 	// show
@@ -13,20 +13,20 @@ function guiTrain() {
 	document.getElementById("testFight").style.display = "none";
 	
 	
-	clearTable();
-	firstLine();
+	this.clearTable();
+	this.firstLine();
 	
 	for(i = 0; i < fighterArray.length; i++) {
-		announceArrayOfFighterRadioButton(fighterArray, i);
+		this.announceArrayOfFighterRadioButton(fighterArray, i);
 	}
 	
-	guiCheckBoxAll();
-}
+	this.guiCheckBoxAll();
+};
 
 /*
 * 
 */
-function guiFight() {
+Game.prototype.guiFight = function() {
 	var tableRowCount = 0;
 	var tableRow = document.getElementById("announcements").insertRow((tableRowCount));
 	// GUI changes
@@ -42,22 +42,22 @@ function guiFight() {
 	document.getElementById("throwButton").style.display = "none";
 	
 	
-	clearTable();
-	firstLine();
+	this.clearTable();
+	this.firstLine();
 	
 	for(i = 0; i < fighterArray.length; i++) {
-		announceArrayOfFighterRadioButton(fighterArray, i);
+		this.announceArrayOfFighterRadioButton(fighterArray, i);
 	}
 	
-	guiCheckBoxAll();
-}
+	this.guiCheckBoxAll();
+};
 
 /*
 * sets the buttons.style.display to "none" or "block" to change the view acordingly
 * updates the dropdownlist
 * clears the announcments table
 */
-function guiBuy() {	
+Game.prototype.guiBuy = function() {
 	var i = 0;
 	
 	// show
@@ -68,22 +68,22 @@ function guiBuy() {
 	document.getElementById("throwButton").style.display = "none";
 	document.getElementById("testFight").style.display = "none";
 	
-	clearTable();
+	this.clearTable();
 	// sets up the first line of the announcmentTable (Name, Speed...)
-	firstLine();
+	this.firstLine();
 	
 	for(i = 0; i < buyableFighter.length; i++) {
-		announceArrayOfFighter(buyableFighter, i);
+		this.announceArrayOfFighter(buyableFighter, i);
 	}
-	loadTopHUD();
-}
+	this.loadTopHUD();
+};
 
 /*
 * 
 */
-function guiCheckBoxAll() {
+Game.prototype.guiCheckBoxAll = function() {
 	var tableRowCount = document.getElementById("announcements").rows.length;
 	var tableRow = document.getElementById("announcements").insertRow((tableRowCount));
 	
 	tableRow.insertCell(0).innerHTML = ("<span><input name='team2' type='checkbox' onclick='if(this.checked) {checkAll()} else {unCheckAll()};' value=" + fighterArray.length + " />All</span>");
-}
+};
