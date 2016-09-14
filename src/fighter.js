@@ -1,5 +1,5 @@
 function getFighter() {
-	return new Fighter(90, 20, 15, 10, 23, 5, 60, 15, 33, 15, 33, 15, 3, 4, 20);
+	return new Fighter(90, 20, 15, 10, 23, 5, 60, 15, 33, 15, 33, 15, 3, 4, 20, readCockie("playerId"));
 }
 
 
@@ -24,7 +24,7 @@ function getFighter() {
 * @param drinkHoldabilityMax
 * @param valueMax, max value that is going to be added to the actual value
 */
-function Fighter(speedRunMin, speedRunMax, speedDrinkMin, speedDrinkMax, mouthCapacityMin, mouthCapacityMax, strengthArmMin, strengthArmMax, accuracyMin, accuracyMax, luckMin, luckMax, drinkHoldabilityMin, drinkHoldabilityMax, valueMax) {
+function Fighter(speedRunMin, speedRunMax, speedDrinkMin, speedDrinkMax, mouthCapacityMin, mouthCapacityMax, strengthArmMin, strengthArmMax, accuracyMin, accuracyMax, luckMin, luckMax, drinkHoldabilityMin, drinkHoldabilityMax, valueMax, playerId) {
 	// string
 	this.name = getName();				
 	// in cm/s
@@ -44,7 +44,7 @@ function Fighter(speedRunMin, speedRunMax, speedDrinkMin, speedDrinkMax, mouthCa
 	// in alcVol?_?
 	this.influence = 0;
 	// an object
-	this.beer = getBeer(player.beerId);
+	this.beer = getBeer(0);
 	// in millisec
 	this.occupied = 0;
 	// not yet
@@ -52,7 +52,7 @@ function Fighter(speedRunMin, speedRunMax, speedDrinkMin, speedDrinkMax, mouthCa
 	// will be set by the db once the fighter is saved for the first time
 	this.id = undefined;
 	// int
-	this.playerId = readCockie("playerId");
+	this.playerId = playerId;
 	// in euro
 	this.value = Math.round(Math.random() * valueMax) + this.speedRun + this.speedDrink + this.mouthCapacity + this.strengthArm + this.accuracy + this.drinkHoldability;
 }

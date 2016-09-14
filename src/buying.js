@@ -1,11 +1,10 @@
 /*
 * adds a fighter from buyableFighter to your fighterArray if you cann afford it
 */
-function purchase(fighterNumber) {	
+function purchase(fighterNumber, player, buyableFighter, fighterArray) {	
 	//var fighterDDL = document.getElementById("fighterDDL");
 	//var fighterNumber = fighterDDL.options[fighterDDL.selectedIndex].value;
 	var table = document.getElementById("announcements");
-	
 	// if you can afford the fighter
 	if(player.changingMoney(buyableFighter[fighterNumber].value)){
 		// add the fighter to your fighterArray
@@ -18,7 +17,7 @@ function purchase(fighterNumber) {
 		// announce that you dont have enough money
 		table.insertRow(0).innerHTML = notEnoughMoneySen + " " + buyableFighter[fighterNumber].name + ".";
 	}
-	guiBuy();
+	guiBuy(player, buyableFighter);
 }
 
 /*
@@ -29,25 +28,10 @@ function purchase(fighterNumber) {
 function getGoods() {   	
 	var i = 0;
 	var numberOffers = 6;
+	var buyableFighter = new Array(numberOffers);
 	
 	for(i = 0; i < numberOffers; i++){
 		buyableFighter[i] = getFighter();
 	}
-}
-
-/*
-* 
-*/
-function phaseId() {   
-	if(phase == 0) {
-		
-	} else if (phase == 1) {
-		
-	} else if (phase == 2) {
-		announceArrayOfFighter(buyableFighter, -1);
-	} else if (phase == 3) {
-		
-	} else {
-		
-	}
+	return buyableFighter;
 }

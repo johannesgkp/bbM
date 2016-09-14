@@ -1,44 +1,33 @@
 /*
 * 
 */
-function train() {
-	phase = 1;
-	
-	guiTrain();
-}
-
-/*
-* 
-*/
-function runTraining(fighterNumber) {
-	fighterArray[fighterNumber].occupied = addMinutes(5);
-	fighterArray[fighterNumber].speedRun = parseInt(fighterArray[fighterNumber].speedRun) + 1;
-	announceTraining(0, fighterArray[fighterNumber].name, fighterArray[fighterNumber].occupied);			
+function runTraining(fighter) {
+	fighter.occupied = addMinutes(5);
+	fighter.speedRun = parseInt(fighter.speedRun) + 1;
+	announceTraining(0, fighter.name, fighter.occupied);			
 	//console.log(fighterArray[fighterNumber].name + " " + will + " " + run + " " + until + ": " + new Date(fighterArray[fighterNumber].occupied).toUTCString());
 }
 
 /*
 * 
 */
-function drinkTraining(fighterNumber) {
-	fighterArray[fighterNumber].occupied = addMinutes(5);
-	fighterArray[fighterNumber].speedDrink = parseInt(fighterArray[fighterNumber].speedDrink) + 1;
-	fighterArray[fighterNumber].drinkHoldability = parseInt(fighterArray[fighterNumber].drinkHoldability) + 0.1;
-	fighterArray[fighterNumber].mouthCapacity = parseInt(fighterArray[fighterNumber].mouthCapacity) + 0.1;
-	announceTraining(1, fighterArray[fighterNumber].name, fighterArray[fighterNumber].occupied);		
+function drinkTraining(fighter) {
+	fighter.occupied = addMinutes(5);
+	fighter.speedDrink = parseInt(fighter.speedDrink) + 1;
+	fighter.drinkHoldability = parseInt(fighter.drinkHoldability) + 0.1;
+	fighter.mouthCapacity = parseInt(fighter.mouthCapacity) + 0.1;
+	announceTraining(1, fighter.name, fighter.occupied);		
 	//console.log(fighterArray[fighterNumber].name + " " + will + " " + drink + " " + until + ": " + new Date(fighterArray[fighterNumber].occupied).toUTCString());
 }
 
 /*
 * 
 */
-function throwTraining(fighterNumber) {
-	console.log(fighterArray[fighterNumber].occupied);
-	fighterArray[fighterNumber].occupied = addMinutes(5);
-	console.log(fighterArray[fighterNumber].occupied);
-	fighterArray[fighterNumber].strengthArm = parseInt(fighterArray[fighterNumber].strengthArm) + 1;
-	fighterArray[fighterNumber].accuracy = parseInt(fighterArray[fighterNumber].accuracy) + 0.5;
-	announceTraining(2, fighterArray[fighterNumber].name, fighterArray[fighterNumber].occupied);		
+function throwTraining(fighter) {
+	fighter.occupied = addMinutes(5);
+	fighter.strengthArm = parseInt(fighter.strengthArm) + 1;
+	fighter.accuracy = parseInt(fighter.accuracy) + 0.5;
+	announceTraining(2, fighter.name, fighter.occupied);		
 	//console.log(fighterArray[fighterNumber].name + " " + will + " " + thro + " " + until + ": " + new Date(fighterArray[fighterNumber].occupied).toUTCString());
 
 }
@@ -46,14 +35,14 @@ function throwTraining(fighterNumber) {
 /*
 * @param callback specifies which training is done
 */
-function checkTime(callback) {
+function checkTime(callback, fighterArray, player) {
 	var fighterNumbersArray = getCheckedCheckboxesFor("team", undefined);
 	var i = 0;
 	for(i = 0; i < fighterNumbersArray.length; i++){
 	console.log("drinnen");
 		if(fighterArray[fighterNumbersArray[i]].occupied < new Date().getTime()) {
 			if(typeof(callback) == "function") {
-				callback(fighterNumbersArray[i]);
+				callback(fighterArray[fighterNumbersArray[i]]);
 			} else {
 				console.log("callback is not a function");
 				console.log(callback);			
@@ -63,7 +52,7 @@ function checkTime(callback) {
 			//console.log(fighterArray[fighterNumbersArray[i]].name + trainsAllready + " " + new Date(fighterArray[fighterNumbersArray[i]].occupied).toUTCString());
 		}		
 	}
-	save();
+	save(fighterArray, player);
 }
 
 /*

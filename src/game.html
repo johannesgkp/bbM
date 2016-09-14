@@ -3,45 +3,43 @@
 	<head>
 		<meta charset="utf-8"/>
 	</head>
-	<body onload="loadPlayer();">	
+	<body onload="loadGlobals();">	
 		<p id="topHUD"></p>
 		<h1>BierballManager</h1>
 		
-		<input type="button" id="fightButton" onclick="guiFight();" value="Fight" />
+		<input type="button" id="fightButton" onclick="guiFight(fighterArrayGlobal);" value="Fight" />
 		
-		<input type="button" id="trainButton" onclick="train();" value="Train" />
+		<input type="button" id="trainButton" onclick="guiTrain(fighterArrayGlobal);" value="Train" />
 		
-		<input type="button" id="buyButton" onclick="guiBuy();" value="Buy" />
+		<input type="button" id="buyButton" onclick="guiBuy(playerGlobal, buyableFighterGlobal);" value="Buy" />
 		
-		<input type="button" id="saveButton" onclick="save();" value="Save" />
+		<input type="button" id="saveButton" onclick="save(fighterArray, playerGlobal);" value="Save" />
 		
 		<input type="button" id="infoButton" onclick="info();" value="Info" />
-				
+	
 		<table id="announcements", style="border: 1px solid black">
 		</table>	
 		
-		<input type="button" name="guiTrain" id="runButton" onclick="checkTime(runTraining);" value="Run" style="display: none" />
+		<input type="button" name="guiTrain" id="runButton" onclick="checkTime(runTraining, fighterArrayGlobal, playerGlobal);" value="Run" style="display: none" />
 		
-		<input type="button" name="guiTrain" id="drinkButton" onclick="checkTime(drinkTraining);" value="Drink" style="display: none" />
+		<input type="button" name="guiTrain" id="drinkButton" onclick="checkTime(drinkTraining, fighterArrayGlobal, playerGlobal);" value="Drink" style="display: none" />
 		
-		<input type="button" name="guiTrain" id="throwButton" onclick="checkTime(throwTraining);" value="Throw" style="display: none" />
+		<input type="button" name="guiTrain" id="throwButton" onclick="checkTime(throwTraining, fighterArrayGlobal, playerGlobal);" value="Throw" style="display: none" />
 		
-		<input type="button" name="guiFight" id="testFight" onclick="getCheckedCheckboxesFor('team', prepareTestFight);" value="testFight" style="display: none" />
+		<input type="button" name="guiFight" id="testFight" onclick="getCheckedCheckboxesFor('team', prepareTestFight, playerGlobal, fighterArrayGlobal);" value="testFight" style="display: none" />
 		
-		<input type="button" name="guiFight" id="parkFight" onclick="getCheckedCheckboxesFor('team', prepareParkFight);" value="parkFight" style="display: none" />
+		<input type="button" name="guiFight" id="parkFight" onclick="getCheckedCheckboxesFor('team', prepareParkFight, playerGlobal, fighterArrayGlobal);" value="parkFight" style="display: none" />
 		
 		<input type="button" name="guiFight" id="turnierFight" value="turnierFight" style="display: none" />
 		
 		<script>
-			// i dont know why i did this
-			var phase = 2;
 			//var player = new Player(0, "", 0, 0);
-			var player;
+			var playerGlobal;
 			// fighters from the player
-			var fighterArray = new Array;
-			var buyableFighter = new Array;
+			var fighterArrayGlobal;
+			var buyableFighterGlobal;
 			// neccesary for gui
-			var numberOfFightingFighter = 0;
+			var numberOfFightingFighter = undefined;
 			
 			// language changing?_?
 			var DrinksSen = "drinks";
@@ -88,20 +86,21 @@
 			var trainsAllreadySen = " trains allready!";
 			var selectAFighterSen = "Select a fighter.";
 		</script>
-		
-		<script src = "loadFighter.js"></script>
-		<script src = "loadPlayer.js"></script>
-		<script src = "player.js"></script>
-		<script src = "training.js"></script>
-		<script src = "buying.js"></script>
-		<script src = "saving.js"></script>
-		<script src = "fighting.js"></script>
-		<script src = "fighter.js"></script>
-		<script src = "oldFighter.js"></script>
-		<script src = "beer.js"></script>
-		<script src = "informing.js"></script>
-		<script src = "gui.js"></script>
-		<script src = "writeInfo.js"></script>
+				
+		<script src="beer.js"></script>
+		<script src="buying.js"></script>
+		<script src="fighter.js"></script>
+		<script src="fighting.js"></script>
+		<script src="gui.js"></script>
+		<script src="informing.js"></script>
+		<script src="loadFighter.js"></script>
+		<script src="loadGlobals.js"></script>
+		<script src="loadPlayer.js"></script>
+		<script src="oldFighter.js"></script>
+		<script src="player.js"></script>
+		<script src="saving.js"></script>
+		<script src="training.js"></script>
+		<script src="writeInfo.js"></script>
 		
 	</body>
 </html> 

@@ -22,7 +22,7 @@ function Player(id, name, money, beerId) {
 */
 Player.prototype.changingMoney = function(ammount) {
 	ammountI = parseInt(ammount);
-	if((ammountI >= 0) || (this.money >= ammountI)) {
+	if((ammountI >= 0) || ((this.money + ammountI) >= 0)) {
 		this.money += ammountI;
 		return true;
 	}
@@ -34,7 +34,7 @@ Player.prototype.changingMoney = function(ammount) {
 * @param BeerId, int 
 */
 Player.prototype.setBeerId = function(beerId) {
-	if(!getBeer) {
+	if(!getBeer(beerId)) {
 		return false;
 	}
 	this.beerId = beerId;

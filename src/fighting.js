@@ -1,7 +1,7 @@
 /*
 * 
 */
-function getCheckedCheckboxesFor(checkboxName, callback) {
+function getCheckedCheckboxesFor(checkboxName, callback, beerId, fighterArray) {
     var checkboxes = document.querySelectorAll('input[name="' + checkboxName + '"]:checked'), values = new Array;
 	
     Array.prototype.forEach.call(checkboxes, function(el) {
@@ -11,7 +11,7 @@ function getCheckedCheckboxesFor(checkboxName, callback) {
 		return 0;
 	} else {		}
 		if(typeof(callback) == "function") {
-			callback(values);
+			callback(fighterArray, values, beerId);
 		} else {
 			return values;			
 	}	
@@ -20,7 +20,7 @@ function getCheckedCheckboxesFor(checkboxName, callback) {
 /*
 * 
 */
-function prepareParkFight(teamArray) {	
+function prepareParkFight(fighterArray, teamArray, player) {	
 	phase = 0;
 	
 	// how much the player has to pay if he losses (but not the beercost)
@@ -58,17 +58,17 @@ function prepareParkFight(teamArray) {
 	
 	// cost Fight is 0 if the fighters are already occupied or the player has not enough money
 	if(costBeerFightGain[3] && costBeerFightGain[4]) {
-		fight(fightingFighter, costBeerFightGain, 0.26, 0.8, 15, 330);
+		fight(fightingFighter, costBeerFightGain, 0.26, 0.8, 15, 330, player);
 		// changes the ammount of money the player has
-		loadTopHUD();
-		save();
+		loadTopHUD(player);
+		save(fighterArray, player);
 	}
 }
 
 /*
 * 
 */
-function prepareTestFight(teamArray) {	
+function prepareTestFight(fighterArray, teamArray, player) {	
 	phase = 0;
 	
 	// how much the player has to pay if he losses (but not the beercost)
@@ -106,19 +106,19 @@ function prepareTestFight(teamArray) {
 	
 	// cost Fight is 0 if the fighters are already occupied or the player has not enough money
 	if(costBeerFightGain[3] && costBeerFightGain[4]) {		
-		fight(fightingFighter, costBeerFightGain, 0.26, 0.8, 15, 330);
+		fight(fightingFighter, costBeerFightGain, 0.26, 0.8, 15, 330, player);
 		// changes the ammount of money the player has
-		loadTopHUD();
-		//save();
+		loadTopHUD(player);
+		//save(fighterArray, player);
 	}
 }
 
 /*
 * 
 */
-function fight(fightingFighter, costBeerFightGain, accuracyNeededToHitBottle, accuracyNeededToBounceBack, strengthNeededToHitBottle, fieldLength) {	
+function fight(fightingFighter, costBeerFightGain, accuracyNeededToHitBottle, accuracyNeededToBounceBack, strengthNeededToHitBottle, fieldLength, player) {	
 	// the cost of the beer has been taken from the player
-	loadTopHUD();
+	loadTopHUD(player);
 
 	var gameOver = false;
 	// right now the active fighter is the first member of a team but never the second or third... 

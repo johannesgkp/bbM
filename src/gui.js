@@ -1,7 +1,7 @@
 /*
 * 
 */
-function guiTrain() {	
+function guiTrain(fighterArray) {	
 var i = 0;
 	// GUI changes
 	
@@ -30,7 +30,7 @@ var i = 0;
 /*
 * 
 */
-function guiFight() {
+function guiFight(fighterArray) {
 	var tableRowCount = 0;
 	var tableRow = document.getElementById("announcements").insertRow((tableRowCount));
 	// GUI changes
@@ -63,7 +63,7 @@ function guiFight() {
 * updates the dropdownlist
 * clears the announcments table
 */
-function guiBuy() {	
+function guiBuy(player, buyableFighter) {	
 	var i = 0;
 	
 	// show
@@ -85,7 +85,7 @@ function guiBuy() {
 	for(i = 0; i < buyableFighter.length; i++) {
 		announceArrayOfFighter(buyableFighter, i);
 	}
-	loadTopHUD();
+	loadTopHUD(player);
 }
 
 /*

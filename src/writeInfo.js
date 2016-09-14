@@ -95,7 +95,7 @@ function announceFighting(nr, name, info) {
 /*
 * 
 */
-function loadTopHUD() {
+function loadTopHUD(player) {
 	document.getElementById("topHUD").innerHTML = player.name + " " + Math.round(player.money) + "$";
 }
 
@@ -147,7 +147,7 @@ function announceArrayOfFighter(arrayOfFighter, fighterNumber) {
 	}
 	var tableRow = document.getElementById("announcements").insertRow(1);
 	
-	tableRow.insertCell(0).innerHTML = ("<button type='button', onclick= 'purchase(" + fighterNumber + ")' />" + arrayOfFighter[fighterNumber].name + "</button>");
+	tableRow.insertCell(0).innerHTML = ("<button type='button', onclick= 'purchase(" + fighterNumber + ", playerGlobal, buyableFighterGlobal, fighterArrayGlobal)' />" + arrayOfFighter[fighterNumber].name + "</button>");
 	tableRow.insertCell(1).innerHTML = arrayOfFighter[fighterNumber].speedRun;
 	tableRow.insertCell(2).innerHTML = arrayOfFighter[fighterNumber].speedDrink;
 	tableRow.insertCell(3).innerHTML = arrayOfFighter[fighterNumber].mouthCapacity;

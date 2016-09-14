@@ -2,9 +2,12 @@
 * shows the fighter of the player in the annoucnment table
 */
 function info() {  
+	console.log(playerGlobal);
+	console.log(fighterArrayGlobal);
+	console.log(numberOfFightingFighter);
 }
 
-
+/*
 function fighterTestDrink() {  
 var result = 0;
 var dummy = new Fighter(90, 20, 15, 10, 23, 5, 60, 15, 33, 15, 8, 6, 3, 4, 20);
@@ -23,7 +26,6 @@ var dummy = new Fighter(90, 20, 15, 10, 23, 5, 60, 15, 33, 15, 8, 6, 3, 4, 20);
 
 
 function fighterTestCatch() {  
-//fieldLength, strengthNeededToHitBottle, accuracyNeededToHitBottle, accuracyNeededToBounceBack 
 var result = 0;
 var dummy = new Fighter(90, 20, 15, 10, 23, 5, 60, 15, 33, 15, 8, 6, 3, 4, 20);
 	for(var i = 0; i < 100; i++) {
@@ -40,7 +42,6 @@ var dummy = new Fighter(90, 20, 15, 10, 23, 5, 60, 15, 33, 15, 8, 6, 3, 4, 20);
 
 
 function fighterTestThrow() {  
-//fieldLength, strengthNeededToHitBottle, accuracyNeededToHitBottle, accuracyNeededToBounceBack 
 var result = new Array();
 var dummy = new Fighter(90, 20, 15, 10, 23, 5, 60, 15, 33, 15, 8, 6, 3, 4, 20);
 var durchschnitt = [0,0,0];
@@ -65,3 +66,4 @@ var durchschnitt = [0,0,0];
 	console.log("result");
 	console.log(durchschnitt[0]);
 }
+*/

@@ -13,7 +13,7 @@ function OldFighter(oldFighterArray) {
 	this.luck = parseInt(oldFighterArray.luck);
 	this.drinkHoldability = parseInt(oldFighterArray.drinkHoldability);
 	this.influence = parseInt(oldFighterArray.influence);
-	this.beer = getBeer(player.beerId);
+	this.beer = getBeer(0);
 	this.occupied = parseInt(oldFighterArray.occupied);
 	this.born = parseInt(oldFighterArray.born);
 	this.id =  parseInt(oldFighterArray.id);

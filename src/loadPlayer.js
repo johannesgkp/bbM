@@ -16,18 +16,21 @@ function loadPlayerId() {
 /*
 * uses the id of the player from a cookie to make an sql request to optain the player array to send it to checkPw(array)
 */
-function loadPlayer() {	
+function loadPlayer(callback) {	
 	var xmlhttp = new XMLHttpRequest();
 	var playerId = readCockie("playerId");
 	
 	xmlhttp.onload = function() {
 		var playerArray = JSON.parse(xmlhttp.responseText);
-		player = new Player(playerArray.id, playerArray.name, playerArray.money, playerArray.beerId);
+		var player = new Player(playerArray.id, playerArray.name, playerArray.money, playerArray.beerId);
 		// announce name and money from the player
-		loadTopHUD();
-		loadFighter(); 
+		loadTopHUD(player);
+		loadFighter(player.id); 
 		// fill the buyableFighterArray
 		getGoods();
+		if(typeof(callback) == "function") {
+			callback(player);
+		}
 	};
 	xmlhttp.open("GET", "loadPlayer.php?playerId=" + playerId, true);
 	xmlhttp.send();
