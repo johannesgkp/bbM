@@ -7,9 +7,7 @@ function purchase(fighterNumber) {
 	var table = document.getElementById("announcements");
 	
 	// if you can afford the fighter
-	if(player.money >= buyableFighter[fighterNumber].value){
-		// pay
-		player.money -= buyableFighter[fighterNumber].value;
+	if(player.changingMoney(buyableFighter[fighterNumber].value)){
 		// add the fighter to your fighterArray
 		fighterArray[fighterArray.length] = buyableFighter[fighterNumber];
 		// announce buying
