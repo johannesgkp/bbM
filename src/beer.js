@@ -29,7 +29,9 @@ function getBeer(beerId) {
 		return new beerBottle("Kindl", 500, 2, 500, 4.8, 3);
 	} else if(beerId == 3) {
 		return new beerBottle("HassHassHasseroeder", 500, 4, 500, 5, 3);
-	} else {
+	} else if(beerId == 4) {
 		return new beerBottle("Berliner", 500, 2, 500, 5.1, 4);
+	} else {
+		return false;
 	}
 }
