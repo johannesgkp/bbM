@@ -2,16 +2,20 @@
 * 
 */
 function guiTrain() {	
+var i = 0;
 	// GUI changes
 	
 	// show
-	document.getElementById("runButton").style.display = "inline";
-	document.getElementById("drinkButton").style.display = "inline";
-	document.getElementById("throwButton").style.display = "inline";
+	var guiTrainArray = document.getElementsByName("guiTrain");
+	for (i = 0; i < guiTrainArray.length; i++) {
+		guiTrainArray[i].style.display = "inline";
+	}
 		
-	// hide
-	document.getElementById("testFight").style.display = "none";
-	
+	// hide	
+	var guiFightArray = document.getElementsByName("guiFight");
+	for (i = 0; i < guiFightArray.length; i++) {
+		guiFightArray[i].style.display = "none";
+	}
 	
 	clearTable();
 	firstLine();
@@ -32,14 +36,16 @@ function guiFight() {
 	// GUI changes
 	
 	// show
-	document.getElementById("testFight").style.display = "inline";
-	document.getElementById("parkFight").style.display = "inline";
-	document.getElementById("turnierFight").style.display = "inline";
-	
+	var guiFightArray = document.getElementsByName("guiFight");
+	for (i = 0; i < guiFightArray.length; i++) {
+		guiFightArray[i].style.display = "inline";
+	}
+		
 	// hide	
-	document.getElementById("runButton").style.display = "none";
-	document.getElementById("drinkButton").style.display = "none";
-	document.getElementById("throwButton").style.display = "none";
+	var guiTrainArray = document.getElementsByName("guiTrain");
+	for (i = 0; i < guiTrainArray.length; i++) {
+		guiTrainArray[i].style.display = "none";
+	}
 	
 	
 	clearTable();
@@ -61,12 +67,16 @@ function guiBuy() {
 	var i = 0;
 	
 	// show
-	
-	// hide
-	document.getElementById("runButton").style.display = "none";
-	document.getElementById("drinkButton").style.display = "none";
-	document.getElementById("throwButton").style.display = "none";
-	document.getElementById("testFight").style.display = "none";
+		
+	// hide	
+	var guiTrainArray = document.getElementsByName("guiTrain");
+	for (i = 0; i < guiTrainArray.length; i++) {
+		guiTrainArray[i].style.display = "none";
+	}
+	var guiFightArray = document.getElementsByName("guiFight");
+	for (i = 0; i < guiFightArray.length; i++) {
+		guiFightArray[i].style.display = "none";
+	}
 	
 	clearTable();
 	// sets up the first line of the announcmentTable (Name, Speed...)

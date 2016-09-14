@@ -20,7 +20,7 @@ function Player(id, name, money, beerId) {
 * changingMoney
 * @param ammount, int 
 */
-Player.prototype.changingMoney = function(ammount) 
+Player.prototype.changingMoney = function(ammount) {
 	ammountI = parseInt(ammount);
 	if((ammountI >= 0) || (this.money >= ammountI)) {
 		this.money += ammountI;

@@ -20,22 +20,23 @@
 		<table id="announcements", style="border: 1px solid black">
 		</table>	
 		
-		<input type="button" id="runButton" onclick="checkTime(runTraining);" value="Run" style="display: none" />
+		<input type="button" name="guiTrain" id="runButton" onclick="checkTime(runTraining);" value="Run" style="display: none" />
 		
-		<input type="button" id="drinkButton" onclick="checkTime(drinkTraining);" value="Drink" style="display: none" />
+		<input type="button" name="guiTrain" id="drinkButton" onclick="checkTime(drinkTraining);" value="Drink" style="display: none" />
 		
-		<input type="button" id="throwButton" onclick="checkTime(throwTraining);" value="Throw" style="display: none" />
+		<input type="button" name="guiTrain" id="throwButton" onclick="checkTime(throwTraining);" value="Throw" style="display: none" />
 		
-		<input type="button" id="testFight" onclick="getCheckedCheckboxesFor('team', prepareTestFight);" value="testFight" style="display: none" />
+		<input type="button" name="guiFight" id="testFight" onclick="getCheckedCheckboxesFor('team', prepareTestFight);" value="testFight" style="display: none" />
 		
-		<input type="button" id="parkFight" onclick="getCheckedCheckboxesFor('team', prepareParkFight);" value="parkFight" style="display: none" />
+		<input type="button" name="guiFight" id="parkFight" onclick="getCheckedCheckboxesFor('team', prepareParkFight);" value="parkFight" style="display: none" />
 		
-		<input type="button" id="turnierFight" value="turnierFight" style="display: none" />
+		<input type="button" name="guiFight" id="turnierFight" value="turnierFight" style="display: none" />
 		
 		<script>
 			// i dont know why i did this
 			var phase = 2;
-			var player = new Array;
+			//var player = new Player(0, "", 0, 0);
+			var player;
 			// fighters from the player
 			var fighterArray = new Array;
 			var buyableFighter = new Array;
@@ -87,8 +88,10 @@
 			var trainsAllreadySen = " trains allready!";
 			var selectAFighterSen = "Select a fighter.";
 		</script>
+		
 		<script src = "loadFighter.js"></script>
 		<script src = "loadPlayer.js"></script>
+		<script src = "player.js"></script>
 		<script src = "training.js"></script>
 		<script src = "buying.js"></script>
 		<script src = "saving.js"></script>

@@ -21,7 +21,8 @@ function loadPlayer() {
 	var playerId = readCockie("playerId");
 	
 	xmlhttp.onload = function() {
-		player = JSON.parse(xmlhttp.responseText);
+		var playerArray = JSON.parse(xmlhttp.responseText);
+		player = new Player(playerArray.id, playerArray.name, playerArray.money, playerArray.beerId);
 		// announce name and money from the player
 		loadTopHUD();
 		loadFighter(); 
