@@ -25,13 +25,15 @@ function purchase(fighterNumber, player, buyableFighter, fighterArray) {
 * only creates Fighter in the same range at the Time
 * later it should be like 3 bad 3 middle and 3 good(expansive) fighters
 */
-function getGoods() {   	
+function getGoods(numberOffers, playerId) {   	
 	var i = 0;
-	var numberOffers = 6;
-	var buyableFighter = new Array(numberOffers);
-	
-	for(i = 0; i < numberOffers; i++){
-		buyableFighter[i] = getFighter();
+	if((numberOffers > 0) && (playerId >= 0)) {
+		var buyableFighter = new Array(numberOffers);
+		
+		for(i = 0; i < numberOffers; i++){
+			buyableFighter[i] = getFighter(playerId);
+		}
+		return buyableFighter;
 	}
-	return buyableFighter;
+	return "numberOffers= " + numberOffers + " " + "playerId= " + playerId;
 }

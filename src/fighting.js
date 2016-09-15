@@ -50,7 +50,7 @@ function prepareParkFight(fighterArray, teamArray, player) {
 	announceFighting(4, fightingFighter[(teamArray.length + i)].name, "");
 	}
 	
-	costBeerFightGain = checkMoneyAndTime(fightingFighter, 0);
+	costBeerFightGain = checkMoneyAndTime(fightingFighter, player.beerId, player.money);
 	
 	// announce Team
 	announceFighting(5, "", "1");
@@ -98,7 +98,7 @@ function prepareTestFight(fighterArray, teamArray, player) {
 	announceFighting(4, fightingFighter[(teamArray.length + i)].name, "");
 	}
 	
-	//costBeerFightGain = checkMoneyAndTime(fightingFighter, 0);
+	//costBeerFightGain = checkMoneyAndTime(fightingFighter, player.beerId, player.money);
 	
 	// announce Team
 	announceFighting(5, "", "1");
@@ -135,30 +135,42 @@ function fight(fightingFighter, costBeerFightGain, accuracyNeededToHitBottle, ac
 	//fieldLength = 100;
 	
 	// in m
-	var throwOutcome;
+	var throwOutcome = [2, "name", 0];
 	// in s
 	var catchTime;
+	var drinkingResult = [0, "name", "message"];
 	
-	player.money -= costBeerFightGain[0];
+	player.changingMoney(-costBeerFightGain[0]);
 	
 	while((!gameOver) && (numberOfRounds < 200)) {
 		numberOfRounds++;
 		// activeFighter throws
 		throwOutcome = fightingFighter[activeFighter].throwing(fieldLength, strengthNeededToHitBottle, accuracyNeededToHitBottle, accuracyNeededToBounceBack);
+		announceFighting(throwOutcome[0], throwOutcome[1], Math.round(throwOutcome[2]));
 		// first member of oppsite team catches
-		catchTime = fightingFighter[((activeFighter + fFLengthHalf) % fightingFighter.length)].catching(throwOutcome);
+		catchTime = fightingFighter[((activeFighter + fFLengthHalf) % fightingFighter.length)].catching(throwOutcome[2]);
 		
 		gameOver = true;
 		//everybody from one team drinks
 		for(i = 0; i < fFLengthHalf; i++) {
 			if(activeFighter < fFLengthHalf) {
-				fightingFighter[i].drinking(catchTime);
+				drinkingResult = fightingFighter[i].drinking(catchTime);
+				if(!drinkingResult) {
+					
+				} else {
+					announceFighting(drinkingResult[0], drinkingResult[1], drinkingResult[2]);
+				}
 				if(fightingFighter[i].beer.liter != 0){
 					// if one member of the team still has beer left the game isnt over
 					gameOver = false;
 				}
 			} else {
-				fightingFighter[(i + fFLengthHalf)].drinking(catchTime);
+				drinkingResult = fightingFighter[(i + fFLengthHalf)].drinking(catchTime);
+				if(!drinkingResult) {
+					
+				} else {
+					announceFighting(drinkingResult[0], drinkingResult[1], drinkingResult[2]);
+				}
 				if(fightingFighter[i].beer.liter != 0){
 					// if one member of the team still has beer left the game isnt over
 					gameOver = false;
@@ -189,10 +201,10 @@ function fight(fightingFighter, costBeerFightGain, accuracyNeededToHitBottle, ac
 	
 	if(activeFighter < fFLengthHalf) {
 		// win
-		player.money += costBeerFightGain[2];
+		player.changingMoney(costBeerFightGain[2]);
 	} else {
 		// lost
-		player.money -= costBeerFightGain[1];
+		player.changingMoney(-costBeerFightGain[1]);
 	}
 	
 	activeFighter = ((activeFighter + fFLengthHalf) % fightingFighter.length);	
@@ -214,7 +226,7 @@ function fight(fightingFighter, costBeerFightGain, accuracyNeededToHitBottle, ac
 * @param fightingFighter array
 * @return array [cost of beer, cost you have to pay if you loose, money(gain) you win]
 */
-function checkMoneyAndTime(fightingFighter) {
+function checkMoneyAndTime(fightingFighter, beerId, money) {
 	var i = 0;
 	//[costBeer, costFight, gainFight, enoughMoney?, time?]
 	var result = [0, 0, 0, false, false];
@@ -222,7 +234,7 @@ function checkMoneyAndTime(fightingFighter) {
 	var occupiedArray = checkTimeArray(fightingFighter);
 	if(occupiedArray[0]) {
 		var numberHalfFighters = (fightingFighter.length / 2);
-		var costBeer = getBeer(player.beerId).cost * (numberHalfFighters * 2);
+		var costBeer = getBeer(beerId).cost * (numberHalfFighters * 2);
 		var costFight = 0;
 		var gainFight = 0;
 		
@@ -234,7 +246,7 @@ function checkMoneyAndTime(fightingFighter) {
 		gainFight /= fightingFighter.length;
 		
 		// if player can afford to loose
-		if((costBeer + costFight) <= player.money){
+		if((costBeer + costFight) <= money){
 			result = [costBeer, costFight, gainFight, true, true];
 		} else {
 			// announce not enough money

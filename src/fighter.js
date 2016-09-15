@@ -1,5 +1,5 @@
-function getFighter() {
-	return new Fighter(90, 20, 15, 10, 23, 5, 60, 15, 33, 15, 33, 15, 3, 4, 20, readCockie("playerId"));
+function getFighter(playerId) {
+	return new Fighter(90, 20, 15, 10, 23, 5, 60, 15, 33, 15, 33, 15, 3, 4, 20, playerId);
 }
 
 
@@ -72,16 +72,17 @@ Fighter.prototype.drinking = function(time) {
 		// if the fighter finishes his beer
 		if(this.beer.liter < dri) {
 			// finished beer
-			announceFighting(0, this.name, "");
-			this.beer.liter = 0; 				
+			this.beer.liter = 0; 		
+			return [0, this.name, ""];
 		} else {
 			// normal drink
 			this.beer.liter -= dri;
 			// fighter gets more wasted
 			//this.influence = (this.influence +((dri / this.beer.capacity) * this.beer.alcoholByVolume));
-			announceFighting(1, this.name, (dri + "/" + this.beer.liter));
+			return [1, this.name, (dri + "/" + (this.beer.liter + dri))];
 		}		
 	}
+	return false;
 };
 	
 /*
@@ -93,7 +94,7 @@ Fighter.prototype.drinking = function(time) {
 * @return cm
 */
 Fighter.prototype.throwing = function(fieldLength, strengthNeededToHitBottle, accuracyNeededToHitBottle, accuracyNeededToBounceBack) {
-	var result;
+	var result = [2, this.name, 0];
 	// influence depending on trinkfestigkeit
 	var infl = ((this.drinkHoldability - Math.max(this.drinkHoldability, this.influence)) * 5);
 	// accu is not in % but is a float(%) and depends on infl
@@ -106,15 +107,12 @@ Fighter.prototype.throwing = function(fieldLength, strengthNeededToHitBottle, ac
 	if((accu > accuracyNeededToHitBottle) && ((strength > strengthNeededToHitBottle))) {
 		// if the fighter manages to make the ball bounce back from the bottle, the enemy has to run a bigger distance in order to optain the ball
 		if(accu > accuracyNeededToBounceBack) {
-			result = ((fieldLength / 2) + (strength / 2));
+			result[2] = ((fieldLength / 2) + (strength / 2));
 		} else {
 			// else the enemy only hast to run to the middle of the field to put the bottle back up
-			result = (fieldLength / 2);	
+			result[2] = (fieldLength / 2);	
 		}
-	} else {
-		result = 0;	
 	}
-	announceFighting(2, this.name, Math.round(result));
 	
 	return result;
 };
