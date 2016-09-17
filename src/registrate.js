@@ -7,7 +7,7 @@ function registrate() {
 	var playerPw = "" + document.getElementById("playerPw").value;
 	
 	xmlhttp.onload = function() {
-		//loadPlayer();
+		loadPlayer();
 	};
 	xmlhttp.open("GET", "src/registratePlayer.php?playerName=" + playerName + "&playerPw=" + playerPw, true);
 	xmlhttp.send();
