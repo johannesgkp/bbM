@@ -26,19 +26,31 @@ function announceTraining(nr, name, info) {
 /*
 * 
 */
-function clearTable() {   	
+function clearTable() {   
 	var table = document.getElementById("announcements");
+	if(table == null) {
+		console.log("no table, announcements");
+		return false;
+	}	
 	while(table.rows[0]) {
 		table.deleteRow(0);
 	}
+	return true;
 }
 
 /*
 * 
 */
-function smalLineTable() {   	
-    var x = document.getElementById("announcements").insertRow(numberOfFightingFighter).insertCell(0);
-    x.innerHTML = "-------------------------";
+function smalLineTable(numberOfFightingFighter) { 
+	var table = document.getElementById("announcements");
+	if(table == null) {
+		console.log("no table, announcements");
+		return false;
+	} else if (table.rows.length >= numberOfFightingFighter) {
+		table.insertRow(numberOfFightingFighter).innerHTML = "-------------------------";
+		return true;
+	}
+	return false;
 }
 
 /*
@@ -96,15 +108,26 @@ function announceFighting(nr, name, info) {
 * 
 */
 function loadTopHUD(player) {
-	document.getElementById("topHUD").innerHTML = player.name + " " + Math.round(player.money) + "$";
+	var topHUD = document.getElementById("topHUD");
+	if(topHUD == null) {
+		console.log("no topHUD");
+		return false;
+	}
+	topHUD.innerHTML = player.name + " " + Math.round(player.money) + "$";
+	return true;
 }
 
 /*
 * 
 */
 function firstLine() { 
-	var table = document.getElementById("announcements");  
-	tableRow = table.insertRow(0);
+	var table = document.getElementById("announcements");
+	if(table == null) {
+		console.log("no table, announcements");
+		return false;
+	}
+	
+	var tableRow = table.insertRow(0);
 	
 	tableRow.insertCell(0).innerHTML = nameSen;
 	tableRow.insertCell(1).innerHTML = speedRunSen;
@@ -114,6 +137,7 @@ function firstLine() {
 	tableRow.insertCell(5).innerHTML = accuracySen;
 	tableRow.insertCell(6).innerHTML = drinkHoldabilitySen;
 	tableRow.insertCell(7).innerHTML = priceSen;
+	return true;
 }
 
 /*
@@ -121,10 +145,15 @@ function firstLine() {
 */
 function checkAll() {
 	var teamCheckBoxes = document.getElementsByName("team");
+	if(teamCheckBoxes == null) {
+		console.log("no teamCheckBoxes, team");
+		return false;
+	}
 	var i = 0;
 	for(i = 0; i < teamCheckBoxes.length; i++) {
 		teamCheckBoxes[i].checked = true;
 	}
+	return true;
 }
 
 /*
@@ -132,6 +161,10 @@ function checkAll() {
 */
 function unCheckAll() {
 	var teamCheckBoxes = document.getElementsByName("team");
+	if(teamCheckBoxes == null) {
+		console.log("no teamCheckBoxes, team");
+		return false;
+	}
 	var i = 0;
 	for(i = 0; i < teamCheckBoxes.length; i++) {
 		teamCheckBoxes[i].checked = false;
