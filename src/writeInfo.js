@@ -2,8 +2,13 @@
 * 
 */
 function announceTraining(nr, name, info) {   
-	var table = document.getElementById("announcements").insertRow(0);
-    var x = table.insertCell(0);
+	var table = document.getElementById("announcements");
+	if(table == null) {
+		console.log("no table, announcements");
+		return false;
+	}
+	
+    var x = table.insertRow(0).insertCell(0);
 	var y = name;
 	var time = new Date(parseInt(info));
 	var hour = time.getHours();
@@ -17,10 +22,13 @@ function announceTraining(nr, name, info) {
 		y += (" " + willSen + " " + drinkSen + " " + untilSen + ": " + time);
 	} else if (nr < 3) {
 		y += (" " + willSen + " " + throwSen + " " + untilSen + ": " + time);
-	} else {
+	} else if (nr < 4) {
 		y +=(" " + isBusySen + " " + untilSen + ": " + time);
+	} else {
+		y +=(" something is up O_o nr: " + nr + " info: " + info);
 	}
     x.innerHTML = y;
+	return true;
 }
 
 /*
@@ -169,18 +177,32 @@ function unCheckAll() {
 	for(i = 0; i < teamCheckBoxes.length; i++) {
 		teamCheckBoxes[i].checked = false;
 	}
+	return true;
 }
 
 /*
 * 
 */
 function announceArrayOfFighter(arrayOfFighter, fighterNumber) {
-	if(fighterNumber < 0) {
-		fighterNumber = fighterDDL.options[fighterDDL.selectedIndex].value;		
+	var table = document.getElementById("announcements");
+	if(table == null) {
+		console.log("no table, announcements");
+		return false;
 	}
-	var tableRow = document.getElementById("announcements").insertRow(1);
 	
-	tableRow.insertCell(0).innerHTML = ("<button type='button', onclick= 'purchase(" + fighterNumber + ", playerGlobal, buyableFighterGlobal, fighterArrayGlobal)' />" + arrayOfFighter[fighterNumber].name + "</button>");
+	if(arrayOfFighter == null) {
+		console.log("arrayOfFighter: null");
+		return false;
+	}
+	
+	if((fighterNumber < 0) || (fighterNumber >= arrayOfFighter.length)) {
+		console.log("fighterNumber: " + fighterNumber + " arrayOfFighter.length: " + arrayOfFighter.length);
+		return false;
+	}
+	
+	var tableRow = table.insertRow(1);
+	
+	tableRow.insertCell(0).innerHTML = ("<button type='button' onclick= 'purchase(" + fighterNumber + ", playerGlobal, buyableFighterGlobal, fighterArrayGlobal)' />" + arrayOfFighter[fighterNumber].name + "</button>");
 	tableRow.insertCell(1).innerHTML = arrayOfFighter[fighterNumber].speedRun;
 	tableRow.insertCell(2).innerHTML = arrayOfFighter[fighterNumber].speedDrink;
 	tableRow.insertCell(3).innerHTML = arrayOfFighter[fighterNumber].mouthCapacity;
@@ -188,16 +210,32 @@ function announceArrayOfFighter(arrayOfFighter, fighterNumber) {
 	tableRow.insertCell(5).innerHTML = arrayOfFighter[fighterNumber].accuracy;
 	tableRow.insertCell(6).innerHTML = arrayOfFighter[fighterNumber].drinkHoldability;
 	tableRow.insertCell(7).innerHTML = arrayOfFighter[fighterNumber].value;
+	
+	return true;
 }
 
 /*
 * 
 */
 function announceArrayOfFighterRadioButton(arrayOfFighter, fighterNumber) {
-	if(fighterNumber < 0) {
-		fighterNumber = fighterDDL.options[fighterDDL.selectedIndex].value;		
+	var table = document.getElementById("announcements");
+
+	if(table == null) {
+		console.log("no table, announcements");
+		return false;
 	}
-	var tableRow = document.getElementById("announcements").insertRow(1);
+	
+	if(arrayOfFighter == null) {
+		console.log("arrayOfFighter: null");
+		return false;
+	}
+	
+	if((fighterNumber < 0) || (fighterNumber >= arrayOfFighter.length)) {
+		console.log("fighterNumber: " + fighterNumber + " arrayOfFighter.length: " + arrayOfFighter.length);
+		return false;
+	}
+	
+	var tableRow = table.insertRow(1);
 	
 	tableRow.insertCell(0).innerHTML = ("<span><input name='team' type='checkbox' value=" + fighterNumber + " />" + arrayOfFighter[fighterNumber].name + "</span>");
 	tableRow.insertCell(1).innerHTML = arrayOfFighter[fighterNumber].speedRun;
@@ -207,5 +245,6 @@ function announceArrayOfFighterRadioButton(arrayOfFighter, fighterNumber) {
 	tableRow.insertCell(5).innerHTML = arrayOfFighter[fighterNumber].accuracy;
 	tableRow.insertCell(6).innerHTML = arrayOfFighter[fighterNumber].drinkHoldability;
 	tableRow.insertCell(7).innerHTML = arrayOfFighter[fighterNumber].value;
-	
+		
+	return true;
 }
